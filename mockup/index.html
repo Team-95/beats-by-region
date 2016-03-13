@@ -15,6 +15,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css"
     integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r"
     crossorigin="anonymous">
+
+    <link rel="stylesheet" href="css/bootstrap-slider.min.css">
   </head>
 
   <body>
@@ -41,28 +43,33 @@
       </div>
     </nav>
 
-    <div class="container-fluid" style="margin-left: 10%; margin-right: 10%;">
+    <div class="container-fluid">
       <div class="row">
-        <div class="col-xs-12 col-md-6">
-          <div class="panel panel-default" style="height: 50vh;" id="map-container">
-            <div class="panel-heading">
-              <h3 class="panel-title">Map</h3>
-            </div>
+        <div class="col-xs-12 col-sm-12 col-md-2">
+          <div class="panel panel-default" style="height: 85vh;" id="options-container">
             <div class="panel-body">
-              <div class="well" id="map" style="height: 42vh;"></div>
+              <div class="well" id="options" style="height: 74vh;">
+                <div class="input-group">
+                  <label for="playlist-name">Playlist Name</label>
+                  <input id="playlist-name" type="text" class="form-control">
+                </div>
+                </br>
+                <div class="input-group">
+                  <label for="tempo">Tempo</label>
+                  <input id="tempo" type="text" class="form-control" value="" data-slider-min="0" data-slider-max="300" data-slider-step="5" data-slider-value="[75, 150]"/>
+                </div>
+              </div>
+              <button type="button" class="btn btn-primary btn-lg" style="height: 5vh; width: 100%;">Generate!</button>
             </div>
           </div>
         </div>
-        <div class="col-xs-12 col-md-6">
-          <div class="panel panel-default" style="height: 50vh;" id="filters-container">
-            <div class="panel-heading">
-              <h3 class="panel-title">Filters</h3>
-            </div>
-            <div class="panel-body">
-              <div class="well" id="filters" style="height: 42vh;"></div>
-            </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-10">
+          <div class="panel panel-default" style="height: 85vh;" id="map-container">
+            <div class="well" id="map" style="height: 85vh;"></div>
           </div>
         </div>
+
       </div>
     </div>
 
@@ -73,6 +80,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
     integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
     crossorigin="anonymous"></script>
+    <script src="js/bootstrap-slider.min.js"></script>
 
     <!-- JQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
