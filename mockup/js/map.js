@@ -48,12 +48,12 @@ function initMap() {
   });
   drawingManager.setMap(map);
 
-  /*google.maps.event.addListener(drawingManager, "overlaycomplete", function(event) {
+  google.maps.event.addListener(drawingManager, "overlaycomplete", function(event) {
     var element = event.overlay;
     google.maps.event.addListener(element, "click", function(e) {
       element.setMap(null);
     });
-  });*/
+  });
 
   var customDeleteToolDiv = document.createElement("div");
   var customDeleteTool = new CustomControl(customDeleteToolDiv, map);
