@@ -8,14 +8,7 @@
     <title>Beats By Region</title>
 
     <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
-    integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
-    crossorigin="anonymous">
-
-    <!-- Bootstrap Theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css"
-    integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r"
-    crossorigin="anonymous">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
 
     <!-- Bootstrap Slider -->
     <link rel="stylesheet" href="css/bootstrap-slider.min.css">
@@ -27,7 +20,7 @@
 
   <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-inverse">
+    <nav class="navbar navbar-default navbar-static-top">
       <div class="container-fluid">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapsed" aria-expanded="false">
@@ -62,12 +55,33 @@
                   <input id="playlist-name" type="text" class="form-control">
                 </div>
                 </br>
+                <div class="btn-group btn-block">
+                  <button type="button" class="btn btn-primary btn-sm btn-block dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Add a Filter!&nbsp;&nbsp;<span class="caret"></span></button>
+                  <ul class="dropdown-menu" style="width: 100%;">
+                    <li><a href="#">Tempo</a></li>
+                    <li><a href="#">Duration</a></li>
+                    <li><a href="#">Loudness</a></li>
+                    <li><a href="#">Familiarity</a></li>
+                    <li><a href="#">Artist Year</a></li>
+                    <li><a href="#">Hotness</a></li>
+                    <li><a href="#">Danceability</a></li>
+                    <li><a href="#">Energy</a></li>
+                    <li><a href="#">Liveness</a></li>
+                    <li><a href="#">Acousticness</a></li>
+                  </ul>
+                </div>
+                </br></br>
                 <div class="input-group">
-                  <label for="tempo">Tempo</label>
-                  <input id="tempo" type="text" class="form-control" value="" data-slider-min="0" data-slider-max="300" data-slider-step="5" data-slider-value="[75, 150]"/>
+                  <label for="tempo">Tempo (bpm)</label>
+                  <input type="text" name="tempo" data-provide="slider" data-slider-min="1" data-slider-max="200" data-slider-step="5" data-slider-value="[75, 150]">
+                </div>
+                </br>
+                <div class="input-group">
+                  <label for="duration">Duration (seconds)</label>
+                  <input type="text" name="duration" data-provide="slider" data-slider-min="1" data-slider-max="1000" data-slider-step="5" data-slider-value="[60, 600]">
                 </div>
               </div>
-              <button type="button" class="btn btn-primary btn-lg" style="height: 5vh; width: 100%;">Generate!</button>
+              <button type="button" class="btn btn-primary" style="height: 5vh; width: 100%;">Generate!</button>
             </div>
           </div>
         </div>
@@ -84,14 +98,16 @@
     <!-- Google Maps -->
     <script src="https://maps.googleapis.com/maps/api/js?key=API_KEY&callback=initMap&libraries=drawing" async defer></script>
 
+    <!-- JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
     <!-- Bootstrap -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
     integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
     crossorigin="anonymous"></script>
-    <script src="js/bootstrap-slider.min.js"></script>
 
-    <!-- JQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Bootstrap Slider -->
+    <script src="js/bootstrap-slider.min.js"></script>
 
     <!-- Custom Maps -->
     <script src="js/map.js"></script>
