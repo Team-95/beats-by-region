@@ -13,6 +13,9 @@
     <!-- Bootstrap Slider -->
     <link rel="stylesheet" href="css/bootstrap-slider.min.css">
 
+    <!-- Main Custom CSS -->
+    <link rel="stylesheet" href="css/main.css">
+
     <!-- Favicon -->
     <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
     <link rel="icon" href="images/favicon.ico" type="image/x-icon">
@@ -46,7 +49,7 @@
 
     <div class="container-fluid">
       <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-2">
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-2">
           <div class="panel panel-default" style="height: 85vh;" id="options-container">
             <div class="panel-body">
               <div class="well" id="options" style="height: 74vh;">
@@ -71,13 +74,13 @@
                   </ul>
                 </div>
                 </br></br>
-                <div class="input-group">
-                  <label for="tempo">Tempo (bpm)</label>
+                <div class="input-group" style="width: 100%;">
+                  <label for="tempo"><span class="glyphicon glyphicon-remove" style="color: gray;" aria-hidden="true"></span>&nbsp;&nbsp;&nbsp;Tempo (bpm)</label>
                   <input type="text" name="tempo" data-provide="slider" data-slider-min="1" data-slider-max="200" data-slider-step="5" data-slider-value="[75, 150]">
                 </div>
                 </br>
-                <div class="input-group">
-                  <label for="duration">Duration (seconds)</label>
+                <div class="input-group" style="width: 100%;">
+                  <label for="duration"><span class="glyphicon glyphicon-remove" style="color: gray;" aria-hidden="true"></span>&nbsp;&nbsp;&nbsp;Duration (seconds)</label>
                   <input type="text" name="duration" data-provide="slider" data-slider-min="1" data-slider-max="1000" data-slider-step="5" data-slider-value="[60, 600]">
                 </div>
               </div>
@@ -86,7 +89,7 @@
           </div>
         </div>
 
-        <div class="col-xs-12 col-sm-12 col-md-10">
+        <div class="col-xs-12 col-sm-12 col-md-9 col-lg-10">
           <div class="panel panel-default" style="height: 85vh;" id="map-container">
             <div class="well" id="map" style="height: 85vh;"></div>
           </div>
