@@ -1,129 +1,109 @@
-class CustomPanControl {
-  constructor(map, drawingManager) {
-    this.controlDiv = document.createElement('div');
-    this.map = map;
-    this.drawingManager = drawingManager;
+"use strict";
 
+var map;
+var drawingManager;
+
+class CustomControl {
+  constructor(title, glyphicon) {
+    this.controlDiv = document.createElement('div');
     this.controlUI = document.createElement('div');
-    this.controlUI.className = 'custom-map-control';
-    this.controlUI.title = 'Navigate the map';
-    this.controlUI.onclick = function() { this.click() };
+    this.controlText = document.createElement('div');
+
+    // Set CSS for control border
+    this.controlUI.style.backgroundColor = '#ffffff';
+    this.controlUI.style.height = '24px';
+    this.controlUI.style.width = '24px';
+    this.controlUI.style.marginTop = '5px';
+    this.controlUI.style.marginLeft = '-6px';
+    this.controlUI.style.paddingTop = '2px';
+    this.controlUI.style.cursor = 'pointer';
+    this.controlUI.style.textAlign = 'center';
+    this.controlUI.onmouseover = function() { this.controlUI.style.backgroundColor = '#f2f2f2' };
+    this.controlUI.onmouseleave = function() { this.controlUI.style.backgroundColor = '#ffffff' };
+    this.controlUI.click = function() { this.controlText.innerHTML = '<span class="glyphicon ' + glyphicon + '" style="opacity: 1;" aria-hidden="true"></span>' };
+    this.controlUI.title = title;
     this.controlDiv.appendChild(this.controlUI);
 
-    this.controlText = document.createElement('div');
-    this.controlText.className = 'custom-map-control-text';
-    this.controlText.innerHTML = '<span class="glyphicon glyphicon-hand-up" style="opacity: 1;" aria-hidden="true"></span>';
+    // Set CSS for control interior
+    this.controlText.style.paddingLeft = '4px';
+    this.controlText.style.paddingRight = '4px';
+    this.controlText.style.marginTop = '3px';
+    this.controlText.innerHTML = '<span class="glyphicon ' + glyphicon + '" style="opacity: 0.5;" aria-hidden="true"></span>';
     this.controlUI.appendChild(this.controlText);
 
     this.controlDiv.index = 1;
-    this.map.controls[google.maps.ControlPosition.TOP_CENTER].push(this.controlDiv);
+    map.controls[google.maps.ControlPosition.TOP_CENTER].push(this.controlDiv);
 
     // Setup the click event listeners
     google.maps.event.addDomListener(this.controlUI, 'click', function(event) {
       this.click();
-    })
+    });
+  }
+}
+
+
+class CustomPanControl extends CustomControl {
+  constructor() {
+    super('Navigate the map', 'glyphicon-hand-up');
   }
 
   click() {
     CustomRectangleControl.reset();
     CustomDeleteControl.reset();
-    this.controlText.innerHTML = '<span class="glyphicon glyphicon-hand-up" style="opacity: 1;" aria-hidden="true"></span>';
+    this.controlText.innerHTML = '<span class="glyphicon ' + this.glyphicon + '" style="opacity: 1;" aria-hidden="true"></span>';
     this.drawingManager.setDrawingMode(null);
   }
 
   static reset() {
-    this.controlText.innerHTML = '<span class="glyphicon glyphicon-hand-up" style="opacity: 0.5;" aria-hidden="true"></span>';
+    this.controlText.innerHTML = '<span class="glyphicon ' + this.glyphicon + '" style="opacity: 0.5;" aria-hidden="true"></span>';
   }
 }
 
-class CustomRectangleControl {
-  constructor(map, drawingManager) {
-    this.controlDiv = document.createElement('div');
-    this.map = map;
-    this.drawingManager = drawingManager;
 
-    this.controlUI = document.createElement('div');
-    this.controlUI.className = 'custom-map-control';
-    this.controlUI.title = 'Select regions';
-    this.controlUI.onclick = function() { this.click() };
-    this.controlDiv.appendChild(this.controlUI);
-
-    this.controlText = document.createElement('div');
-    this.controlText.className = 'custom-map-control-text';
-    this.controlText.innerHTML = '<span class="glyphicon glyphicons-unchecked" style="opacity: 0.5;" aria-hidden="true"></span>';
-    this.controlUI.appendChild(this.controlText);
-
-    this.controlDiv.index = 1;
-    this.map.controls[google.maps.ControlPosition.TOP_CENTER].push(this.controlDiv);
-
-    // Setup the click event listeners
-    google.maps.event.addDomListener(this.controlUI, 'click', function(event) {
-      this.click();
-    })
+class CustomRectangleControl extends CustomControl {
+  constructor() {
+    super('Draw regions on the map', 'glyphicons-unchecked');
   }
 
   click() {
     CustomPanControl.reset();
     CustomDeleteControl.reset();
-    this.controlText.innerHTML = '<span class="glyphicon glyphicons-unchecked" style="opacity: 1;" aria-hidden="true"></span>';
+    this.controlText.innerHTML = '<span class="glyphicon ' + this.glyphicon + '" style="opacity: 1;" aria-hidden="true"></span>';
     this.drawingManager.setDrawingMode(google.maps.drawing.OverlayType.RECTANGLE);
   }
 
   static reset() {
-    this.controlText.innerHTML = '<span class="glyphicon glyphicons-unchecked" style="opacity: 0.5;" aria-hidden="true"></span>';
+    this.controlText.innerHTML = '<span class="glyphicon ' + this.glyphicon + '" style="opacity: 0.5;" aria-hidden="true"></span>';
   }
 }
 
-class CustomDeleteControl {
-  constructor(map, drawingManager) {
-    this.controlDiv = document.createElement('div');
-    this.map = map;
-    this.drawingManager = drawingManager;
 
-    this.controlUI = document.createElement('div');
-    this.controlUI.className = 'custom-map-control';
-    this.controlUI.title = 'Delete regions';
-    this.controlUI.onclick = function() { this.click() };
-    this.controlDiv.appendChild(this.controlUI);
-
-    this.controlText = document.createElement('div');
-    this.controlText.className = 'custom-map-control-text';
-    this.controlText.innerHTML = '<span class="glyphicon glyphicon-ban-circle" style="opacity: 0.5;" aria-hidden="true"></span>';
-    this.controlUI.appendChild(this.controlText);
-
-    this.controlDiv.index = 1;
-    this.map.controls[google.maps.ControlPosition.TOP_CENTER].push(this.controlDiv);
-
-    // Setup the click event listeners
-    google.maps.event.addDomListener(this.controlUI, 'click', function(event) {
-      this.click();
-    })
+class CustomDeleteControl extends CustomControl {
+  constructor() {
+    super('Delete regions from the map', 'glyphicon-ban-circle');
   }
 
   click() {
     CustomRectangleControl.reset();
     CustomPanControl.reset();
-    this.controlText.innerHTML = '<span class="glyphicon glyphicon-ban-circle" style="opacity: 1;" aria-hidden="true"></span>';
+    this.controlText.innerHTML = '<span class="glyphicon ' + this.glyphicon + '" style="opacity: 1;" aria-hidden="true"></span>';
     this.drawingManager.setDrawingMode(null);
 
-    google.maps.event.addListener(this.drawingManager, "overlaycomplete", function(event) {
+    google.maps.event.addListener(this.drawingManager, 'overlaycomplete', function(event) {
       var element = event.overlay;
-      google.maps.event.addListener(element, "click", function(e) {
+      google.maps.event.addListener(element, 'click', function(e) {
         element.setMap(null);
       });
     });
   }
 
   static reset() {
-    this.controlText.innerHTML = '<span class="glyphicon glyphicon-ban-circle" style="opacity: 0.5;" aria-hidden="true"></span>';
+    this.controlText.innerHTML = '<span class="glyphicon ' + this.glyphicon + '" style="opacity: 0.5;" aria-hidden="true"></span>';
   }
 }
 
 
 function initMap() {
-  var map;
-  var drawingManager;
-
   // Starting coordinates are Seattle, WA.
   var startingCoordinates = new google.maps.LatLng(47.6097, -122.3331);
 
@@ -165,7 +145,7 @@ function initMap() {
   });
   drawingManager.setMap(map);
 
-  var customPanControl = new CustomPanControl(map, drawingManager);
-  var customRectangleControl = new CustomRectangleControl(map, drawingManager);
-  var customDeleteControl = new CustomDeleteControl(map, drawingManager);
+  var customPanControl = new CustomPanControl();
+  var customRectangleControl = new CustomRectangleControl();
+  var customDeleteControl = new CustomDeleteControl();
 }
