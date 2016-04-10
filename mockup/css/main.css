@@ -2,23 +2,10 @@
   width: 100%;
 }
 
-.custom-map-control {
-  background-color: '#ffffff';
-  height: 24px;
-  width: 24px;
-  margin-top: 5px;
-  margin-left: -6px;
-  padding-top: 2px;
-  cursor: 'pointer';
-  text-align: center;
-}
-
-.custom-map-control:hover {
-  background-color: '#f2f2f2';
-}
-
-.custom-map-control-text {
-  padding-left: 4px;
-  padding-right: 4px;
-  margin-top: 3px;
+.playlist-song{
+  margin-bottom: 16px;
+  margin-left: 2%;
+  margin-right: 2%;
+  margin-top: 16px;
+  background-color: #7A99B8;
 }
