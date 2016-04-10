@@ -1,3 +1,11 @@
 .slider.slider-horizontal {
   width: 100%;
 }
+
+.playlist-song{
+  margin-bottom: 16px;
+  margin-left: 2%;
+  margin-right: 2%;
+  margin-top: 16px;
+  background-color: #7A99B8;
+}

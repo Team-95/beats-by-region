@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+
+    <title>Beats By Region</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+    <!-- Bootstrap Slider -->
+    <link rel="stylesheet" href="css/bootstrap-slider.min.css">
+
+    <!-- Main Custom CSS -->
+    <link rel="stylesheet" href="css/main.css">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+  </head>
+
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-default navbar-static-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapsed" aria-expanded="false">
+            <span class="sr-only">Toggle Navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">
+            <span><img alt="Beats By Region" src="images/bbr-logo.png" style="margin-top: -8px; margin-right: 5px;"></span> Beats By Region
+          </a>
+        </div>
+
+        <!-- Navbar links -->
+        <div class="collapse navbar-collapse" id="navbar-collapsed">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Generate Playlist</a></li>
+            <li><a href="#">About</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- playlist-->
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-xs-1 col-sm-1 col-md-2 col-lg-2">
+        </div>
+        <!-- Individual Song -->
+        <div class="col-xs-10 col-sm-10 col-md-8 col-lg-8">
+          <div class="panel panel-default" style="height: 85vh;" id="options-container">
+            <div class="panel-heading">Playlist Name</div>
+            <div  class = "panel panel-default" style = "height: 180px">
+              <div class = "playlist-song" style = "height: 148px">
+                <div class = "media">
+                  <div class = "media-left media-middle" style = "float: left; margin-top: 10px; margin-left: 10px;">
+                    <a href="#">
+                      <img class = "media-object" src="images/face.jpg" height="128" width="128">
+                    </a>
+                  </div>
+                  <div style = "float: left; margin-left: 5%; margin-top: 16px">
+                    <p><b>Song Name - Artist Name</b></p>
+                    <p><b>Album Name</b></p>
+                    <p><b>Runtime 00:00</b></p>
+                    <p><b>Location</b></p>
+                  </div>
+                  <div class = "well" style = "float: right; height: 116px; width: 35%; margin-bottom: 16px; margin-right: 5%; margin-top: 16px">
+                    <p><b>Popularity - recent<span style = "float: right">Rank</span></b></p>
+                    <p><b>Popularity - unexpected<span style = "float: right">Rank</span></b></p>
+                    <p><b>Hotness<span style = "float: right">Rank</span></b></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Google Maps -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=API_KEY&callback=initMap&libraries=drawing" async defer></script>
+
+    <!-- JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+    <!-- Bootstrap -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+    integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+    crossorigin="anonymous"></script>
+
+    <!-- Bootstrap Slider -->
+    <script src="js/bootstrap-slider.min.js"></script>
+
+    <!-- Custom Maps -->
+    <script src="js/map.js"></script>
+  </body>
+
+</html>
