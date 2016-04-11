@@ -1,11 +1,62 @@
 .slider.slider-horizontal {
   width: 100%;
 }
-
-.playlist-song{
-  margin-bottom: 16px;
-  margin-left: 2%;
-  margin-right: 2%;
-  margin-top: 16px;
-  background-color: #7A99B8;
+/*inside color and area for each opened song combine with well*/
+.playlist-song-inside {
+  height: 148px;
+  padding-bottom: 0px;
+  padding-left: 2%;
+  padding-right: 2%;
+  padding-top: 0px;
+  /*background-color: hsl(210, 34%, 72%);*/
 }
+
+/*outside color and area for each opened song*/
+.playlist-song-outside {
+  height: 180px;
+  background-color: hsl(210, 34%, 50%);
+  border-bottom-style: solid;
+  border-left-style: solid;
+  border-right-style: solid;
+  border-color: hsl(210, 45%, 18%);
+}
+
+/*artist, album, length, ect.*/
+.playlist-song-info {
+  float: left;
+  margin-left: 5%;
+  margin-top: 16px;
+}
+
+/*popularity, hotness, ect. RIP Echonest ;( */
+.playlist-song-stats {
+  background-color: hsl(210, 34%, 72%);
+  float: right; height: 116px;
+  width: 35%; margin-bottom: 16px;
+  margin-right: 5%; margin-top: 16px;
+}
+
+/*unopened and unselected song header
+playlist should have a blank div with bottom border to "cap" all the songs*/
+.playlist-song-header{
+  background-color: hsl(210, 34%, 72%);
+  border-bottom-style: solid;
+  border-left-style: solid;
+  border-right-style: solid;
+  border-color: hsl(210, 45%, 18%);
+}
+
+/*selected song header changes background*/
+.playlist-song-header-selected{
+  background-color: hsl(210, 34%, 50%);
+  border-bottom-style: solid;
+  border-left-style: solid;
+  border-right-style: solid;
+  border-color: hsl(210, 45%, 18%);
+}
+
+/*Background color values V == value or lightness with higher values being lighter*/
+/*#7A99B8 V=70, hsl(210, 34%, 72%)*/
+/*#556A80 V=50, hsl(210, 34%, 50%)*/
+/*#2C3E50 V=30, hsl(210, 45%, 31%)*/
+/*#1A242F V=18, hsl(210, 45%, 18%)*/
