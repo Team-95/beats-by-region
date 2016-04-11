@@ -16,6 +16,9 @@
     <!-- Main Custom CSS -->
     <link rel="stylesheet" href="css/main.css">
 
+    <!-- Playlist Custom CSS -->
+    <link rel="stylesheet" href="css/playlist.css">
+
     <!-- Favicon -->
     <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
     <link rel="icon" href="images/favicon.ico" type="image/x-icon">
@@ -33,7 +36,7 @@
             <span class="icon-bar"></span>
           </button>
           <a class="navbar-brand" href="#">
-            <span><img alt="Beats By Region" src="images/bbr-logo.png" style="margin-top: -8px; margin-right: 5px;"></span> Beats By Region
+            <span><img alt="Beats By Region" src="images/bbr_logo_small.png" style="margin-top: -8px; margin-right: 5px;"></span> Beats By Region
           </a>
         </div>
 
@@ -51,40 +54,46 @@
       <div class="row">
         <div class="col-xs-1 col-sm-1 col-md-2 col-lg-2">
         </div>
-        <!-- Individual Song -->
+
         <div class="col-xs-10 col-sm-10 col-md-8 col-lg-8">
           <div class="panel panel-default" style="height: 85vh;" id="options-container">
-            <div class="panel-heading">Playlist Name</div>
-            <div  class = "panel panel-default" style = "height: 180px">
-              <div class = "playlist-song" style = "height: 148px">
-                <div class = "media">
-                  <div class = "media-left media-middle" style = "float: left; margin-top: 10px; margin-left: 10px;">
-                    <a href="#">
-                      <img class = "media-object" src="images/face.jpg" height="128" width="128">
-                    </a>
-                  </div>
-                  <div style = "float: left; margin-left: 5%; margin-top: 16px">
-                    <p><b>Song Name - Artist Name</b></p>
-                    <p><b>Album Name</b></p>
-                    <p><b>Runtime 00:00</b></p>
-                    <p><b>Location</b></p>
-                  </div>
-                  <div class = "well" style = "float: right; height: 116px; width: 35%; margin-bottom: 16px; margin-right: 5%; margin-top: 16px">
-                    <p><b>Popularity - recent<span style = "float: right">Rank</span></b></p>
-                    <p><b>Popularity - unexpected<span style = "float: right">Rank</span></b></p>
-                    <p><b>Hotness<span style = "float: right">Rank</span></b></p>
+            <div class="panel-heading" style = "border-color: hsl(0, 0%, 80%);border-bottom-style: solid;background-color: hsl(210, 34%, 72%)"><b>Playlist Name<b></div>
+            <div class = "panel-body" style = "background-color: hsl(0, 0%, 80%);">
+              <!-- caps of all of the songs because song headers use the border of the header above themselves-->
+              <div style = "border-bottom-style: solid; border-color: hsl(210, 45%, 18%);"></div>
+              <!-- Individual song (opened) -->
+              <div class = "panel-body playlist-song-header-selected" >Song1 Name</div>
+              <div class = "panel-body playlist-song-outside">
+                <div class = " well playlist-song-inside">
+                  <div class = "media">
+                    <div style = "float: left; margin-top: 10px; margin-left: 10px;">
+                      <a href="#">
+                        <img class = "img-thumbnail" src="images/face.jpg" height="128" width="128">
+                      </a>
+                    </div>
+                    <div class = "playlist-song-info">
+                      <p><b>Song Name - Artist Name</b></p>
+                      <p><b>Album Name</b></p>
+                      <p><b>Runtime 00:00</b></p>
+                      <p><b>Location</b></p>
+                    </div>
+                    <div class = "well playlist-song-stats" >
+                      <p><b>Popularity - recent<span style = "float: right">Rank</span></b></p>
+                      <p><b>Popularity - unexpected<span style = "float: right">Rank</span></b></p>
+                      <p><b>Hotness<span style = "float: right">Rank</span></b></p>
+                    </div>
                   </div>
                 </div>
               </div>
+            <!-- Individual song (unopened)-->
+            <div class = "panel-body playlist-song-header">Song2 Name</div>
+            <div class = "panel-body playlist-song-header">Song3 Name</div>
+            <div class = "panel-body playlist-song-header">Song4 Name</div>
             </div>
           </div>
         </div>
-
       </div>
     </div>
-
-    <!-- Google Maps -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=API_KEY&callback=initMap&libraries=drawing" async defer></script>
 
     <!-- JQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -97,8 +106,6 @@
     <!-- Bootstrap Slider -->
     <script src="js/bootstrap-slider.min.js"></script>
 
-    <!-- Custom Maps -->
-    <script src="js/map.js"></script>
   </body>
 
 </html>
