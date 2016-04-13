@@ -7,12 +7,12 @@ readme = ''
 with open('README.md') as f:
     readme = f.read()
 
-setup(name='Beats By Region',
+setup(name='Video Locale',
       author='Team 95',
-      url='https://github.com/Team-95/beats-by-region',
+      url='https://github.com/Team-95/videolocale',
       packages=find_packages(),
       license='MIT',
-      description='A website that generates music playlists based on selected geographical regions.',
+      description='A website that generates YouTube playlists based on selected geographical regions.',
       long_description=readme,
       include_package_data=True,
       install_requires=requirements,
@@ -26,6 +26,6 @@ setup(name='Beats By Region',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
         'Topic :: Internet',
-        'Topic :: Multimedia :: Sound/Audio',
+        'Topic :: Multimedia :: Video :: Display'
       ]
 )

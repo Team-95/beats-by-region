@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 
 """
-    Beats By Region
-    ---------------
+    Video Locale
+    ------------
 
-    A website that generates music playlists based on selected
+    A website that generates YouTube playlists based on selected
     geographical regions.
 
     :copyright: (c) 2016 Team 95.
