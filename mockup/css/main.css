@@ -1,3 +1,18 @@
-.slider.slider-horizontal {
-  width: 100%;
+/* Sets 100% width for filter controls and adds a margin to top and bottom. */
+.filter-control {
+  width: 100%:
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+/* Sets default color to gray, changes the cursor to a pointer when hovering
+   over filter removal button. */
+.remove-filter {
+  color: gray;
+  cursor: pointer;
+}
+
+/* Changes the color of the filter removal button on hover to red. */
+.remove-filter:hover {
+  color: #990000 !important;
 }

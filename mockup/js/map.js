@@ -2,7 +2,7 @@
 // https://developers.google.com/youtube/v3/docs/search/list#location
 var MAXIMUM_RADIUS_METERS = 1000000
 
-L.mapbox.accessToken = 'pk.eyJ1IjoidGVhbTk1IiwiYSI6ImNpbXV4dzNjZzAyazF3Ymx1djgwamJxYjQifQ.JoJzyplw9KMAjonxxz-4ZQ';
+L.mapbox.accessToken = '';
 var map = L.mapbox.map('map', 'mapbox.streets')
       .setView([47.6097, -122.3331], 6);
 
