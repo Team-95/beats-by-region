@@ -54,38 +54,37 @@
 
         <div class="col-xs-10 col-sm-10 col-md-8 col-lg-8">
           <div class="panel panel-default" style="height: 85vh;" id="options-container">
-            <div class="panel-heading" style = "border-color: hsl(0, 0%, 80%);border-bottom-style: solid;background-color: hsl(210, 34%, 72%)"><b>Playlist Name<b></div>
+            <div class="panel-heading playlist-header" ><b>Playlist Name<b></div>
             <div class = "panel-body" style = "background-color: hsl(0, 0%, 80%);">
-              <!-- caps of all of the songs because song headers use the border of the header above themselves-->
+              <!-- caps of all of the videos because video headers use the border of the header above themselves-->
               <div style = "border-bottom-style: solid; border-color: hsl(210, 45%, 18%);"></div>
-              <!-- Individual song (opened) -->
-              <div class = "panel-body playlist-song-header-selected" >Song1 Name</div>
-              <div class = "panel-body playlist-song-outside">
-                <div class = " well playlist-song-inside">
-                  <div class = "media">
-                    <div style = "float: left; margin-top: 10px; margin-left: 10px;">
-                      <a href="#">
-                        <img class = "img-thumbnail" src="images/face.jpg" height="128" width="128">
-                      </a>
+              <!-- Individual video (opened) -->
+              <div class = "panel-body playlist-video-header-selected" >Video 1 Name</div>
+              <div class = "panel-body playlist-video-outside">
+                <div class = " well playlist-video-inside">
+                  <div class = "playlist-video-embeded">
+                    <iframe width="420" height="315"
+                    src="http://www.youtube.com/embed/7GO8t9a1SQs">
+                    </iframe>
+                  </div>
+                  <div class = "playlist-video-text">
+                    <div class = "well playlist-video-info">
+                        <p><b>Video Name <span style = "float: right">Runtime 00:00</span></b></p>
+                        <p><b>Creator Name <span style = "float: right">Upload date</span></b></p>
                     </div>
-                    <div class = "playlist-song-info">
-                      <p><b>Song Name - Artist Name</b></p>
-                      <p><b>Album Name</b></p>
-                      <p><b>Runtime 00:00</b></p>
-                      <p><b>Location</b></p>
-                    </div>
-                    <div class = "well playlist-song-stats" >
-                      <p><b>Popularity - recent<span style = "float: right">Rank</span></b></p>
-                      <p><b>Popularity - unexpected<span style = "float: right">Rank</span></b></p>
-                      <p><b>Hotness<span style = "float: right">Rank</span></b></p>
+                    <div class = "well playlist-video-description">
+                      <p><b>Description<br> - Lorem ipsum dolor sit amet, dui risus vivamus.
+                      Taciti tempor nunc integer, nunc consectetuer eu, purus
+                      dignissim accumsan, nisl sint non metus, augue ut adipiscing.
+                      Sed ut massa bibendum inceptos. Eu libero.</b></p>
                     </div>
                   </div>
                 </div>
               </div>
-            <!-- Individual song (unopened)-->
-            <div class = "panel-body playlist-song-header">Song2 Name</div>
-            <div class = "panel-body playlist-song-header">Song3 Name</div>
-            <div class = "panel-body playlist-song-header">Song4 Name</div>
+            <!-- Individual video (unopened)-->
+            <div class = "panel-body playlist-video-header">Video 2 Name</div>
+            <div class = "panel-body playlist-video-header">Video 3 Name</div>
+            <div class = "panel-body playlist-video-header">Video 4 Name</div>
             </div>
           </div>
         </div>

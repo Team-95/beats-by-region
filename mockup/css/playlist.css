@@ -1,55 +1,86 @@
-/*inside color and area for each opened song combine with well*/
-.playlist-song-inside {
-  height: 148px;
-  padding-bottom: 0px;
-  padding-left: 2%;
-  padding-right: 2%;
-  padding-top: 0px;
+/*playlist heading (name, ~#videos, ~runtime)*/
+.playlist-header{
+  border-color: hsl(0, 0%, 80%);
+  border-bottom-style: solid;
+  background-color: hsl(210, 34%, 72%);
+}
+
+/*outside color and area for each opened video*/
+.playlist-video-outside {
+  height: 371px;
+  overflow: hidden;
+  border-bottom-style: solid;
+  border-left-style: solid;
+  border-right-style: solid;
+  border-color: hsl(210, 45%, 18%);
+  background-color: hsl(210, 34%, 31%);
+}
+
+/*inside color and area for each opened video combine with well*/
+.playlist-video-inside {
+  height: 337px;
+  width: 100%;
+  width: 100%;
+  position: relative;
+  overflow-x: auto;
+  overflow-y: hidden;
+  background-color: hsl(210, 34%, 50%);
+  padding-bottom: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 10px;
   /*background-color: hsl(210, 34%, 72%);*/
 }
 
-/*outside color and area for each opened song*/
-.playlist-song-outside {
-  height: 180px;
-  background-color: hsl(210, 34%, 50%);
-  border-bottom-style: solid;
-  border-left-style: solid;
-  border-right-style: solid;
-  border-color: hsl(210, 45%, 18%);
+/*embeded video div*/
+.playlist-video-embeded{
+   height: 100%;
+   width: 420px;
+   position: absolute;
+}
+
+/*div for video text*/
+.playlist-video-text{
+  height: 100%;
+  width: auto;
+  min-width: 300px;
+  margin-left: 430px;
+  margin-right: 10px;
+  overflow: hidden;
 }
 
 /*artist, album, length, ect.*/
-.playlist-song-info {
-  float: left;
-  margin-left: 5%;
-  margin-top: 16px;
+.playlist-video-info {
+  float: top;
+  height: 96px;
+  margin-bottom: 10px;
 }
 
 /*popularity, hotness, ect. RIP Echonest ;( */
-.playlist-song-stats {
-  background-color: hsl(210, 34%, 72%);
-  float: right; height: 116px;
-  width: 35%; margin-bottom: 16px;
-  margin-right: 5%; margin-top: 16px;
-}
-
-/*unopened and unselected song header
-playlist should have a blank div with bottom border to "cap" all the songs*/
-.playlist-song-header{
-  background-color: hsl(210, 34%, 72%);
-  border-bottom-style: solid;
-  border-left-style: solid;
-  border-right-style: solid;
-  border-color: hsl(210, 45%, 18%);
-}
-
-/*selected song header changes background*/
-.playlist-song-header-selected{
+.playlist-video-description {
+  float: bottom;
+  height: 211px;
   background-color: hsl(210, 34%, 50%);
+}
+
+/*unopened and unselected video header
+playlist should have a blank div with bottom border to "cap" all the videos*/
+.playlist-video-header{
+  background-color: hsl(210, 34%, 72%);
   border-bottom-style: solid;
   border-left-style: solid;
   border-right-style: solid;
   border-color: hsl(210, 45%, 18%);
+}
+
+/*selected video header changes background*/
+.playlist-video-header-selected{
+  background-color: hsl(210, 34%, 31%);
+  border-bottom-style: solid;
+  border-left-style: solid;
+  border-right-style: solid;
+  border-color: hsl(210, 45%, 18%);
+  color: hsl(210,45%,90%);
 }
 
 /*Background color values V == value or lightness with higher values being lighter*/
