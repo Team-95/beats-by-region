@@ -14,50 +14,26 @@ $(document).ready(function() {
     $('#datetimepicker-beginning').data('DateTimePicker').maxDate(e.date);
   });
 
-  // Remove filter that the clicked remove button is associated with.
+  // Remove filter that the clicked remove button is associated with,
+  // and re-enable the dropdown menu item for that filter.
   $('.remove-filter').click(function() {
     $(this).parent().toggle();
+    var parentId = $(this).parent().attr('id');
+    var dropdownId = '#' + parentId.replace('control', 'menu');
+    $(dropdownId).removeClass('disabled');
+    $(dropdownId).removeClass('not-active');
+    $(dropdownId).prop('disabled', false);
   });
 
-  // Setup click events for dropdown menu items.
-  $('#num-results-menu').click(function() {
-    $('#num-results-control').toggle();
-  });
-
-  $('#video-type-menu').click(function() {
-    $('#video-type-control').toggle();
-  });
-
-  $('#result-order-menu').click(function() {
-    $('#result-order-control').toggle();
-  });
-
-  $('#upload-date-menu').click(function() {
-    $('#upload-date-control').toggle();
-  });
-
-  $('#safe-search-menu').click(function() {
-    $('#safe-search-control').toggle();
-  });
-
-  $('#captions-menu').click(function() {
-    $('#captions-control').toggle();
-  });
-
-  $('#category-menu').click(function() {
-    $('#category-control').toggle();
-  });
-
-  $('#definition-menu').click(function() {
-    $('#definition-control').toggle();
-  });
-
-  $('#dimension-menu').click(function() {
-    $('#dimension-control').toggle();
-  });
-
-  $('#duration-menu').click(function() {
-    $('#duration-control').toggle();
+  // Disable the dropdown menu item for the selected filter, and toggle
+  // the visibility of the filter div to show the filter.
+  $('.filter-menu-item').click(function() {
+    $(this).prop('disabled', true);
+    $(this).addClass('disabled');
+    $(this).addClass('not-active');
+    var itemId = $(this).attr('id');
+    var controlId = '#' + itemId.replace('menu', 'control');
+    $(controlId).toggle();
   });
 
   // Disable generate button until a search query is entered.

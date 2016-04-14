@@ -16,3 +16,8 @@
 .remove-filter:hover {
   color: #990000 !important;
 }
+
+/* Disables mouse click events in Chrome and Firefox. */
+.not-active {
+  pointer-events: none;
+}
