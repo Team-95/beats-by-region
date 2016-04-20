@@ -61,120 +61,122 @@
         <div class="col-xs-12 col-sm-12 col-md-3 col-lg-2">
           <div class="panel panel-default" style="height: 85vh;" id="options-container">
             <div class="panel-body">
-              <div class="btn-group btn-block">
-                <button type="button" class="btn btn-primary btn-sm btn-block dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Add a Filter!&nbsp;&nbsp;<span class="caret"></span></button>
-                <ul class="dropdown-menu" style="width: 100%;">
-                  <li class="filter-menu-item" id="search-query-menu"><a href="#">Search Query</br>&nbsp;<small>Term(s) to search for</small></a></li>
-                  <li class="filter-menu-item" id="num-results-menu"><a href="#">Number of Results</br>&nbsp;<small>Desired number of videos</small></a></li>
-                  <li class="filter-menu-item" id="video-type-menu"><a href="#">Type of Video</br>&nbsp;<small>Restrict to normal videos,</br>&nbsp;or completed/live broadcast</small></a></li>
-                  <li class="filter-menu-item" id="result-order-menu"><a href="#">Result Order</br>&nbsp;<small>Attribute to sort results by</small></a></li>
-                  <li class="filter-menu-item" id="upload-date-menu"><a href="#">Upload Date Range</br>&nbsp;<small>Restrict videos to a particular</br>&nbsp;time period</small></a></li>
-                  <li class="filter-menu-item" id="safe-search-menu"><a href="#">Safe Search</br>&nbsp;<small>Enable/disable restricted</br>&nbsp;content</small></a></li>
-                  <li class="filter-menu-item" id="captions-menu"><a href="#">Captions</br>&nbsp;<small>Restrict to videos with/without</br>&nbsp;captions</small></a></li>
-                  <li class="filter-menu-item" id="category-menu"><a href="#">Category</br>&nbsp;<small>Restrict to videos within a</br>&nbsp;particular category</small></a></li>
-                  <li class="filter-menu-item" id="definition-menu"><a href="#">Definition</br>&nbsp;<small>Restrict to HD/SD videos</small></a></li>
-                  <li class="filter-menu-item" id="dimension-menu"><a href="#">Dimension</br>&nbsp;<small>Restrict to 3D/2D videos</small></a></li>
-                  <li class="filter-menu-item" id="duration-menu"><a href="#">Duration</br>&nbsp;<small>Restrict the length of videos</small></a></li>
-                </ul>
-              </div>
-              </br></br>
-              <div class="well" id="filter-container">
-                <div id="search-query-control" class="input-group filter-control" style="display:none">
-                  <label for="search-query">Search Query</label><span class="remove-filter glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
-                  <input disabled id="search-query" type="text" class="form-control">
+              <form method="POST">
+                <div class="btn-group btn-block">
+                  <button type="button" class="btn btn-primary btn-sm btn-block dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Add a Filter!&nbsp;&nbsp;<span class="caret"></span></button>
+                  <ul class="dropdown-menu" style="width: 100%;">
+                    <li class="filter-menu-item" id="search-query-menu"><a href="#">Search Query</br>&nbsp;<small>Term(s) to search for</small></a></li>
+                    <li class="filter-menu-item" id="num-results-menu"><a href="#">Number of Results</br>&nbsp;<small>Desired number of videos</small></a></li>
+                    <li class="filter-menu-item" id="video-type-menu"><a href="#">Type of Video</br>&nbsp;<small>Restrict to normal videos,</br>&nbsp;or completed/live broadcast</small></a></li>
+                    <li class="filter-menu-item" id="result-order-menu"><a href="#">Result Order</br>&nbsp;<small>Attribute to sort results by</small></a></li>
+                    <li class="filter-menu-item" id="upload-date-menu"><a href="#">Upload Date Range</br>&nbsp;<small>Restrict videos to a particular</br>&nbsp;time period</small></a></li>
+                    <li class="filter-menu-item" id="safe-search-menu"><a href="#">Safe Search</br>&nbsp;<small>Enable/disable restricted</br>&nbsp;content</small></a></li>
+                    <li class="filter-menu-item" id="captions-menu"><a href="#">Captions</br>&nbsp;<small>Restrict to videos with/without</br>&nbsp;captions</small></a></li>
+                    <li class="filter-menu-item" id="category-menu"><a href="#">Category</br>&nbsp;<small>Restrict to videos within a</br>&nbsp;particular category</small></a></li>
+                    <li class="filter-menu-item" id="definition-menu"><a href="#">Definition</br>&nbsp;<small>Restrict to HD/SD videos</small></a></li>
+                    <li class="filter-menu-item" id="dimension-menu"><a href="#">Dimension</br>&nbsp;<small>Restrict to 3D/2D videos</small></a></li>
+                    <li class="filter-menu-item" id="duration-menu"><a href="#">Duration</br>&nbsp;<small>Restrict the length of videos</small></a></li>
+                  </ul>
                 </div>
-                <div id="num-results-control" class="input-group filter-control" style="display:none">
-                  <label for="num-results">Number of Results</label><span class="remove-filter glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
-                  <input disabled type="text" name="num-results" data-provide="slider" data-slider-min="1" data-slider-max="50" data-slider-step="1" data-slider-value="25">
-                </div>
-                <div id="video-type-control" class="input-group filter-control" style="display:none">
-                  <label for="video-type">Video Type</label><span class="remove-filter glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
-                  <select disabled name="video-type" class="form-control">
-                    <option>All videos</option>
-                    <option>Live broadcasts only</option>
-                    <option>Completed broadcasts only</option>
-                  </select>
-                </div>
-                <div id="result-order-control" class="input-group filter-control" style="display:none">
-                  <label for="result-order">Result Order</label><span class="remove-filter glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
-                  <select disabled name="result-order" class="form-control">
-                    <option>Date</option>
-                    <option>Rating</option>
-                    <option>Relevance</option>
-                    <option>Title</option>
-                    <option>View Count</option>
-                  </select>
-                </div>
-                <div id="upload-date-control" class="filter-control" style="display:none">
-                  <label for="upload-date">Upload Date Range</label><span class="remove-filter glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
-                  <div class="input-group date" id="datetimepicker-beginning">
-                    <input disabled type="text" class="form-control" placeholder="Start Date"/>
-                    <span class="input-group-addon">
-                      <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
+                </br></br>
+                <div class="well" id="filter-container">
+                  <div id="search-query-control" class="input-group filter-control" style="display:none">
+                    <label for="search-query">Search Query</label><span class="remove-filter glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
+                    <input disabled id="search-query" type="text" class="form-control">
                   </div>
-                  </br>
-                  <div class="input-group date" id="datetimepicker-end">
-                    <input disabled type="text" class="form-control" placeholder="End Date"/>
-                    <span class="input-group-addon">
-                      <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
+                  <div id="num-results-control" class="input-group filter-control" style="display:none">
+                    <label for="num-results">Number of Results</label><span class="remove-filter glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
+                    <input disabled type="text" name="num-results" data-provide="slider" data-slider-min="1" data-slider-max="50" data-slider-step="1" data-slider-value="25">
+                  </div>
+                  <div id="video-type-control" class="input-group filter-control" style="display:none">
+                    <label for="video-type">Video Type</label><span class="remove-filter glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
+                    <select disabled name="video-type" class="form-control">
+                      <option>All videos</option>
+                      <option>Live broadcasts only</option>
+                      <option>Completed broadcasts only</option>
+                    </select>
+                  </div>
+                  <div id="result-order-control" class="input-group filter-control" style="display:none">
+                    <label for="result-order">Result Order</label><span class="remove-filter glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
+                    <select disabled name="result-order" class="form-control">
+                      <option>Date</option>
+                      <option>Rating</option>
+                      <option>Relevance</option>
+                      <option>Title</option>
+                      <option>View Count</option>
+                    </select>
+                  </div>
+                  <div id="upload-date-control" class="filter-control" style="display:none">
+                    <label for="upload-date">Upload Date Range</label><span class="remove-filter glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
+                    <div class="input-group date" id="datetimepicker-beginning">
+                      <input disabled type="text" class="form-control" placeholder="Start Date"/>
+                      <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                      </span>
+                    </div>
+                    </br>
+                    <div class="input-group date" id="datetimepicker-end">
+                      <input disabled type="text" class="form-control" placeholder="End Date"/>
+                      <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                      </span>
+                    </div>
+                  </div>
+                  <div id="safe-search-control" class="input-group filter-control" style="display:none">
+                    <label for="safe-search">Safe Search</label><span class="remove-filter glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
+                    <select disabled name="safe-search" class="form-control">
+                      <option>Moderate</option>
+                      <option>None</option>
+                      <option>Strict</option>
+                    </select>
+                  </div>
+                  <div id="captions-control" class="input-group filter-control" style="display:none">
+                    <label for="captions">Captions</label><span class="remove-filter glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
+                    <select disabled name="captions" class="form-control">
+                      <option>Any</option>
+                      <option>Only videos without captions</option>
+                      <option>Only videos with captions</option>
+                    </select>
+                  </div>
+                  <div id="category-control" class="input-group filter-control" style="display:none">
+                    <label for="category">Category</label><span class="remove-filter glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
+                    <select disabled name="category" class="form-control">
+                      <!-- TODO: Populate options with values from VideoCategories API call:
+                                https://developers.google.com/youtube/v3/docs/videoCategories -->
+                      <option>Film & Animation</option>
+                      <option>Autos & Vehicles</option>
+                      <option>Music</option>
+                      <option>More options here...</option>
+                    </select>
+                  </div>
+                  <div id="definition-control" class="input-group filter-control" style="display:none">
+                    <label for="definition">Definition</label><span class="remove-filter glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
+                    <select disabled name="definition" class="form-control">
+                      <option>Any</option>
+                      <option>Only HD videos</option>
+                      <option>Only SD videos</option>
+                    </select>
+                  </div>
+                  <div id="dimension-control" class="input-group filter-control" style="display:none">
+                    <label for="dimension">Dimension</label><span class="remove-filter glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
+                    <select disabled name="dimension" class="form-control">
+                      <option>Any</option>
+                      <option>Only 2D videos</option>
+                      <option>Only 3D videos</option>
+                    </select>
+                  </div>
+                  <div id="duration-control" class="input-group filter-control" style="display:none">
+                    <label for="duration">Duration</label><span class="remove-filter glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
+                    <select disabled name="duration" class="form-control">
+                      <option>Any</option>
+                      <option>Short (Less than 4 minutes long)</option>
+                      <option>Medium (Between 4 and 20 minutes long)</option>
+                      <option>Long (Over 20 minutes long)</option>
+                    </select>
                   </div>
                 </div>
-                <div id="safe-search-control" class="input-group filter-control" style="display:none">
-                  <label for="safe-search">Safe Search</label><span class="remove-filter glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
-                  <select disabled name="safe-search" class="form-control">
-                    <option>Moderate</option>
-                    <option>None</option>
-                    <option>Strict</option>
-                  </select>
-                </div>
-                <div id="captions-control" class="input-group filter-control" style="display:none">
-                  <label for="captions">Captions</label><span class="remove-filter glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
-                  <select disabled name="captions" class="form-control">
-                    <option>Any</option>
-                    <option>Only videos without captions</option>
-                    <option>Only videos with captions</option>
-                  </select>
-                </div>
-                <div id="category-control" class="input-group filter-control" style="display:none">
-                  <label for="category">Category</label><span class="remove-filter glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
-                  <select disabled name="category" class="form-control">
-                    <!-- TODO: Populate options with values from VideoCategories API call:
-                               https://developers.google.com/youtube/v3/docs/videoCategories -->
-                    <option>Film & Animation</option>
-                    <option>Autos & Vehicles</option>
-                    <option>Music</option>
-                    <option>More options here...</option>
-                  </select>
-                </div>
-                <div id="definition-control" class="input-group filter-control" style="display:none">
-                  <label for="definition">Definition</label><span class="remove-filter glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
-                  <select disabled name="definition" class="form-control">
-                    <option>Any</option>
-                    <option>Only HD videos</option>
-                    <option>Only SD videos</option>
-                  </select>
-                </div>
-                <div id="dimension-control" class="input-group filter-control" style="display:none">
-                  <label for="dimension">Dimension</label><span class="remove-filter glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
-                  <select disabled name="dimension" class="form-control">
-                    <option>Any</option>
-                    <option>Only 2D videos</option>
-                    <option>Only 3D videos</option>
-                  </select>
-                </div>
-                <div id="duration-control" class="input-group filter-control" style="display:none">
-                  <label for="duration">Duration</label><span class="remove-filter glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
-                  <select disabled name="duration" class="form-control">
-                    <option>Any</option>
-                    <option>Short (Less than 4 minutes long)</option>
-                    <option>Medium (Between 4 and 20 minutes long)</option>
-                    <option>Long (Over 20 minutes long)</option>
-                  </select>
-                </div>
-              </div>
-              <button disabled id="generate-button" type="button" class="btn btn-primary" style="height: 5vh; width: 100%;">Generate!</button>
+                <button disabled id="generate-button" type="submit" class="btn btn-primary" style="height: 5vh; width: 100%;">Generate!</button>
+              </form>
             </div>
           </div>
         </div>
