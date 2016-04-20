@@ -1,6 +1,10 @@
 // Maximum radius for searching, as stated in the YouTube API (1000 km):
 // https://developers.google.com/youtube/v3/docs/search/list#location
-var MAXIMUM_RADIUS_METERS = 1000000
+var MAXIMUM_RADIUS_METERS = 1000000;
+
+// Maximum number of regions. A maximum must be set as each region
+// requires its own YouTube API call.
+var MAXIMUM_NUM_REGIONS = 5;
 
 L.mapbox.accessToken = '';
 var map = L.mapbox.map('map', 'mapbox.streets')
@@ -18,7 +22,7 @@ L.drawLocal.edit.toolbar.buttons.removeDisabled = 'No regions to delete.';
 L.drawLocal.edit.handlers.edit.tooltip.text = 'Drag handles to edit region.';
 L.drawLocal.edit.handlers.remove.tooltip.text = 'Click on a region to remove.';
 
-var drawControl = new L.Control.Draw({
+var drawControlCircleEnabled = new L.Control.Draw({
   draw: {
     polygon: false,
     polyline: false,
@@ -31,6 +35,19 @@ var drawControl = new L.Control.Draw({
   }
 }).addTo(map);
 
+var drawControlCircleDisabled = new L.Control.Draw({
+  draw: {
+    polygon: false,
+    polyline: false,
+    rectangle: false,
+    circle: false,
+    marker: false
+  },
+  edit: {
+    featureGroup: featureGroup
+  }
+});
+
 map.on('draw:created', function(e) {
   if (e.layer.getRadius() > MAXIMUM_RADIUS_METERS) {
     e.layer.setRadius(MAXIMUM_RADIUS_METERS);
@@ -38,6 +55,13 @@ map.on('draw:created', function(e) {
   }
   featureGroup.addLayer(e.layer);
   e.layer.openPopup();
+  
+  if (featureGroup.getLayers().length === MAXIMUM_NUM_REGIONS) {
+    drawControlCircleEnabled.removeFrom(map);
+    drawControlCircleDisabled.addTo(map);
+    featureGroup.bindPopup('The maximum number of regions is ' + MAXIMUM_NUM_REGIONS + '. Delete a region to re-enable the drawing tool.');
+    featureGroup.openPopup();
+  }
 });
 
 map.on('draw:edited', function(e) {
@@ -48,4 +72,9 @@ map.on('draw:edited', function(e) {
       layer.openPopup();
     }
   });
+});
+
+map.on('draw:deleted', function(e) {
+  drawControlCircleDisabled.removeFrom(map);
+  drawControlCircleEnabled.addTo(map);
 });
