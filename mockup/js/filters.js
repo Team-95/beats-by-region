@@ -19,10 +19,17 @@ $(document).ready(function() {
   $('.remove-filter').click(function() {
     $(this).parent().toggle();
     var parentId = $(this).parent().attr('id');
+    $(parentId).find('input').prop('disabled', true);
+    $(parentId).find('select').prop('disabled', true);
     var dropdownId = '#' + parentId.replace('control', 'menu');
     $(dropdownId).removeClass('disabled');
     $(dropdownId).removeClass('not-active');
     $(dropdownId).prop('disabled', false);
+    
+    // If all filters are now disabled, disable the generate button.
+    if ($('.filter-control:enabled').length == 0) {
+      $('#generate-button').prop('disabled', true);
+    }
   });
 
   // Disable the dropdown menu item for the selected filter, and toggle
@@ -34,11 +41,22 @@ $(document).ready(function() {
     var itemId = $(this).attr('id');
     var controlId = '#' + itemId.replace('menu', 'control');
     $(controlId).toggle();
+    $(controlId).find('input').prop('disabled', false);
+    $(controlId).find('select').prop('disabled', false);
+    
+    // Enable generate button.
+    $('#generate-button').prop('disabled', false);
+    
+    // Check if enabled filter is a search query. If so, the generate button
+    // needs to be disabled until text is entered.
+    if ($(this).attr('id') == 'search-query-menu') {
+      $('#generate-button').prop('disabled', true);
+    }
   });
 
-  // Disable generate button until a search query is entered.
-  $('#video-query').on('keyup', function() {
-    if ($('#video-query').val().length > 0) {
+  // Disable generate button until text is entered into search box (if enabled).
+  $('#search-query').on('keyup', function() {
+    if ($('#search-query').val().length > 0) {
       $('#generate-button').prop('disabled', false);
     } else {
       $('#generate-button').prop('disabled', true);

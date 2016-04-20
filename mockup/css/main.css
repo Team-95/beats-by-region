@@ -1,8 +1,7 @@
 /* Sets 100% width for filter controls and adds a margin to top and bottom. */
 .filter-control {
-  width: 100%:
-  margin-top: 10px;
-  margin-bottom: 10px;
+  width: 100%;
+  margin-bottom: 20px;
 }
 
 /* Sets default color to gray, changes the cursor to a pointer when hovering
@@ -20,4 +19,12 @@
 /* Disables mouse click events in Chrome and Firefox. */
 .not-active {
   pointer-events: none;
+}
+
+/* Scrollable container for filters. */
+#filter-container {
+  height: 68vh;
+  width: 100%;
+  overflow: auto;
+  overflow-x: hidden;
 }
