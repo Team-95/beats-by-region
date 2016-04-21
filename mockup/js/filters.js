@@ -4,6 +4,15 @@ $(document).ready(function() {
   $('#datetimepicker-end').datetimepicker({
     useCurrent: false
   });
+  
+  // Set minimum datetime of beginning time picker to the date of the
+  // first ever YouTube video (April 23, 2005).
+  // https://youtube.com/watch?v=jNQXAC9IVRw
+  $('#datetimepicker-beginning').data('DateTimePicker').minDate(new Date('April 23, 2005'));
+  
+  // Set maximum datetime of ending time picker to the current datetime.
+  $('#datetimepicker-end').data('DateTimePicker').maxDate(new Date());
+  
 
   // Link the two datetimepickers together to ensure that no illegal
   // date ranges can be selected.
