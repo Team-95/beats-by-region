@@ -1,6 +1,8 @@
 $(document).ready(function() {
   // Initialize datetimepickers.
-  $('#datetimepicker-beginning').datetimepicker();
+  $('#datetimepicker-beginning').datetimepicker({
+    useCurrent: false
+  });
   $('#datetimepicker-end').datetimepicker({
     useCurrent: false
   });
