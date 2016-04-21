@@ -27,4 +27,10 @@
   width: 100%;
   overflow: auto;
   overflow-x: hidden;
+
+}
+
+/* Fit datetimepickers within filter wrapper to avoid clipping. */
+.bootstrap-datetimepicker-widget {
+  width: 100% !important;
 }
