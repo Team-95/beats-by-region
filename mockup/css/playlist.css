@@ -34,10 +34,15 @@
 }
 
 /*embeded video div*/
-.playlist-video-embeded{
+.playlist-video-embedded{
    height: 100%;
    width: 420px;
    position: absolute;
+}
+
+.playlist-video-embedded-vid{
+  width:420px;
+  height:315px;
 }
 
 /*div for video text*/
