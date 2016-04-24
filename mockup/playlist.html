@@ -59,7 +59,7 @@
               <!-- caps of all of the videos because video headers use the border of the header above themselves-->
               <div style = "border-bottom-style: solid; border-color: hsl(210, 45%, 18%);"></div>
               <!-- Individual video (opened) -->
-              <div class = "panel-body playlist-video-header-selected" >Video 1 Name</div>
+              <div class = "panel-body playlist-video-header" >Video 1 Name</div>
               <div class = "panel-body playlist-video-outside">
                 <div class = " well playlist-video-inside">
                   <div class = "playlist-video-embeded">
@@ -81,8 +81,31 @@
                   </div>
                 </div>
               </div>
-            <!-- Individual video (unopened)-->
+
             <div class = "panel-body playlist-video-header">Video 2 Name</div>
+            <div class = "panel-body playlist-video-outside">
+              <div class = " well playlist-video-inside">
+                <div class = "playlist-video-embeded">
+                  <iframe width="420" height="315"
+                  src="http://www.youtube.com/embed/dpjFcLIm6mc">
+                  </iframe>
+                </div>
+                <div class = "playlist-video-text">
+                  <div class = "well playlist-video-info">
+                      <p><b>Video Name <span style = "float: right">Runtime 00:00</span></b></p>
+                      <p><b>Creator Name <span style = "float: right">Upload date</span></b></p>
+                  </div>
+                  <div class = "well playlist-video-description">
+                    <p><b>Description<br> - Lorem ipsum dolor sit amet, dui risus vivamus.
+                    Taciti tempor nunc integer, nunc consectetuer eu, purus
+                    dignissim accumsan, nisl sint non metus, augue ut adipiscing.
+                    Sed ut massa bibendum inceptos. Eu libero.</b></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
             <div class = "panel-body playlist-video-header">Video 3 Name</div>
             <div class = "panel-body playlist-video-header">Video 4 Name</div>
             </div>
@@ -100,7 +123,7 @@
     crossorigin="anonymous"></script>
 
     <!-- Bootstrap Slider -->
-    <script src="js/bootstrap-slider.min.js"></script>
+    <script src="js/playlist.js"></script>
 
   </body>
 

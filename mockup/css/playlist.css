@@ -7,6 +7,7 @@
 
 /*outside color and area for each opened video*/
 .playlist-video-outside {
+  display:none;
   height: 371px;
   overflow: hidden;
   border-bottom-style: solid;
@@ -66,6 +67,7 @@
 /*unopened and unselected video header
 playlist should have a blank div with bottom border to "cap" all the videos*/
 .playlist-video-header{
+  cursor: pointer;
   background-color: hsl(210, 34%, 72%);
   border-bottom-style: solid;
   border-left-style: solid;
@@ -74,12 +76,9 @@ playlist should have a blank div with bottom border to "cap" all the videos*/
 }
 
 /*selected video header changes background*/
-.playlist-video-header-selected{
+.playlist-video-header:hover{
+  cursor: pointer;
   background-color: hsl(210, 34%, 31%);
-  border-bottom-style: solid;
-  border-left-style: solid;
-  border-right-style: solid;
-  border-color: hsl(210, 45%, 18%);
   color: hsl(210,45%,90%);
 }
 
