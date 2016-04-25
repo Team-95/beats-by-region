@@ -6,7 +6,7 @@ from youtube_result import *
 
 _base_search_url = "https://www.googleapis.com/youtube/v3/search?"
 _base_videos_url = "https://www.googleapis.com/youtube/v3/videos?"
-_api_key = "AIzaSyCDPEZfWMbqfDBPk8yGZoXnUah5gm07N_U"
+_api_key = "REPLACE ME"
 
 def get_from_youtube(request):
 
