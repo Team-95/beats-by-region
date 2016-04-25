@@ -32,8 +32,10 @@ def playlist_page():
         # construct the youtube request object from the form parameters
         # right now I'm just doing the query parameter
         if "query" in request.form:
-            query = request.form["query"]
-            youtube_request.query = query
+            youtube_request.query = request.form["query"]
+
+        if "num-results" in request.form:
+            youtube_request.max_results = request.form["num-results"]
 
         #until I know how to get the location details from the map, I'll just use Seattle's
         youtube_request.location = "47.6062,-122.3321"

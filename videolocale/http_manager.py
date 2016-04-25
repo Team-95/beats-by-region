@@ -41,7 +41,7 @@ def _get_search_url(request):
     if request.max_results != None:
         url += "&maxResults=" + request.max_results
     else:
-        url += "&maxResults=5" # default to giving 50 results
+        url += "&maxResults=49" # default to giving 50 results
 
     if request.result_order != None:
         url += "&order=" + request.result_order
