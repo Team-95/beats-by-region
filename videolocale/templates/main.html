@@ -201,11 +201,10 @@
     <!-- bootstrap-datetimepicker -->
     <script src="{{ url_for('static', filename='js/bootstrap-datetimepicker.min.js') }}"></script>
 
-    <!-- Custom Maps -->
-    <script src="{{ url_for('static', filename='js/map.js') }}"></script>
-
     <!-- Filters -->
     <script src="{{ url_for('static', filename='js/filters.js') }}"></script>
+    
+    {% include 'map.html' %}
   </body>
 
 </html>
