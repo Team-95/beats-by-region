@@ -6,7 +6,7 @@ var MAXIMUM_RADIUS_METERS = 1000000;
 // requires its own YouTube API call.
 var MAXIMUM_NUM_REGIONS = 5;
 
-L.mapbox.accessToken = '';
+L.mapbox.accessToken = 'pk.eyJ1IjoidGVhbTk1IiwiYSI6ImNpbXpkbWNuazA0Ynd1cGtrc2UxdDNmcHYifQ.GeJZYeKgVVYJejiNFFvGoA';
 var map = L.mapbox.map('map', 'mapbox.streets')
       .setView([47.6097, -122.3331], 6);
 
@@ -27,11 +27,25 @@ var drawControlCircleEnabled = new L.Control.Draw({
     polygon: false,
     polyline: false,
     rectangle: false,
-    circle: true,
+    circle: {
+      /*change circle style here*/
+      shapeOptions:{
+        fillColor: 'hsl(210,29%,44%)',
+        color: 'hsl(210,29%,34%)',
+        fillOpacity: .3
+      }
+    },
     marker: false
   },
   edit: {
-    featureGroup: featureGroup
+    featureGroup: featureGroup,
+    /* included to keep style on selection edit*/
+    edit:{
+      selectedPathOptions: {
+        maintainColor: true,
+        opacity: 0.3
+      }
+    }
   }
 }).addTo(map);
 
@@ -55,7 +69,7 @@ map.on('draw:created', function(e) {
   }
   featureGroup.addLayer(e.layer);
   e.layer.openPopup();
-  
+
   if (featureGroup.getLayers().length === MAXIMUM_NUM_REGIONS) {
     drawControlCircleEnabled.removeFrom(map);
     drawControlCircleDisabled.addTo(map);
