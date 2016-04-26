@@ -72,7 +72,7 @@ def playlist_page():
         for result in video_results:
             return_string += result.id + "<br>"
 
-        return return_string
+        return render_template("playlist.html", videos = video_results)
     else:                       # if it's a GET we need to display some generic information.
         return render_template("playlist.html")                    # in the future we could display previously created lists
 
