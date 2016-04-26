@@ -63,13 +63,13 @@ def _get_search_url(request):
         url += "&videoDimension=" + request.dimension
 
     if request.duration != None:
-        url += "videoDuration=" + request.duration
+        url += "&videoDuration=" + request.duration
 
     if request.category != None:
-        url += "videoCategoryId=" + request.category
+        url += "&videoCategoryId=" + request.category
 
-    if request.event_type != None:
-        url += "&q=" + request.event_type
+    if request.event_type != None and request.event_type != "all":
+        url += "&eventType=" + request.event_type
 
     return url
 

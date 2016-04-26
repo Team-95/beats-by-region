@@ -37,6 +37,30 @@ def playlist_page():
         if "num-results" in request.form:
             youtube_request.max_results = request.form["num-results"]
 
+        if "event-type" in request.form:
+            youtube_request.event_type = request.form["event-type"]
+
+        if "result-order" in request.form:
+            youtube_request.result_order = request.form["result-order"]
+
+        if "safe-search" in request.form:
+            youtube_request.safe_search = request.form["safe-search"]
+
+        if "captions" in request.form:
+            youtube_request.captions = request.form["captions"]
+
+        if "category" in request.form:
+            youtube_request.category = request.form["category"]
+
+        if "definition" in request.form:
+            youtube_request.definition = request.form["definition"]
+
+        if "dimension" in request.form:
+            youtube_request.dimension = request.form["dimension"]
+
+        if "duration" in request.form:
+            youtube_request.duration = request.form["duration"]
+
         #until I know how to get the location details from the map, I'll just use Seattle's
         youtube_request.location = "47.6062,-122.3321"
         youtube_request.location_radius = "1mi"
