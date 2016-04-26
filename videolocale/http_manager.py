@@ -2,11 +2,12 @@ import requests
 import json
 from youtube_request import *
 from youtube_result import *
+from os import environ
 
 
 _base_search_url = "https://www.googleapis.com/youtube/v3/search?"
 _base_videos_url = "https://www.googleapis.com/youtube/v3/videos?"
-_api_key = "REPLACE ME"
+_api_key = environ["YOUTUBE_API_KEY"]
 
 def get_from_youtube(request):
 
