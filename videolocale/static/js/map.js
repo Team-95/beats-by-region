@@ -27,11 +27,25 @@ var drawControlCircleEnabled = new L.Control.Draw({
     polygon: false,
     polyline: false,
     rectangle: false,
-    circle: true,
+    circle: {
+      /*change circle style here*/
+      shapeOptions:{
+        fillColor: 'hsl(210,29%,44%)',
+        color: 'hsl(210,29%,34%)',
+        fillOpacity: .3
+      }
+    },
     marker: false
   },
   edit: {
-    featureGroup: featureGroup
+    featureGroup: featureGroup,
+    /* included to keep style on selection edit*/
+    edit:{
+      selectedPathOptions: {
+        maintainColor: true,
+        opacity: 0.3
+      }
+    }
   }
 }).addTo(map);
 
