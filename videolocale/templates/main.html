@@ -24,10 +24,10 @@
     <link rel="icon" href="{{ url_for('static', filename='img/favicon.ico') }}" type="image/x-icon">
 
     <!-- Mapbox -->
-    <script src='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.js'></script>
-    <link href='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.css' rel='stylesheet'/>
-    <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-draw/v0.2.3/leaflet.draw.css' rel='stylesheet'/>
-    <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-draw/v0.2.3/leaflet.draw.js'></script>
+    <script src="https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.js"></script>
+    <link href="https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.css" rel="stylesheet"/>
+    <link href="https://api.mapbox.com/mapbox.js/plugins/leaflet-draw/v0.2.3/leaflet.draw.css" rel="stylesheet"/>
+    <script src="https://api.mapbox.com/mapbox.js/plugins/leaflet-draw/v0.2.3/leaflet.draw.js"></script>
   </head>
 
   <body>
@@ -91,19 +91,17 @@
                   <div id="event-type-control" class="input-group filter-control" style="display:none">
                     <label for="event-type">Video Type</label><span class="remove-filter glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
                     <select disabled name="event-type" class="form-control">
-                      {% for value, title in filters.event_type.iteritems() %}
-                        <option value="{{ value }}">{{ title }}</option>
+                      {% for option in filters.event_type_options %}
+                        <option value="{{ option }}">{{ filters.event_type_titles[option] }}</option>
                       {% endfor %}
                     </select>
                   </div>
                   <div id="result-order-control" class="input-group filter-control" style="display:none">
                     <label for="result-order">Result Order</label><span class="remove-filter glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
                     <select disabled name="result-order" class="form-control">
-                      <option>Date</option>
-                      <option>Rating</option>
-                      <option>Relevance</option>
-                      <option>Title</option>
-                      <option>View Count</option>
+                      {% for option in filters.result_order_options %}
+                        <option value="{{ option }}">{{ filters.result_order_titles[option] }}</option>
+                      {% endfor %}
                     </select>
                   </div>
                   <div id="upload-date-control" class="filter-control" style="display:none">
@@ -125,53 +123,49 @@
                   <div id="safe-search-control" class="input-group filter-control" style="display:none">
                     <label for="safe-search">Safe Search</label><span class="remove-filter glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
                     <select disabled name="safe-search" class="form-control">
-                      <option>Moderate</option>
-                      <option>None</option>
-                      <option>Strict</option>
+                      {% for option in filters.safe_search_options %}
+                        <option value="{{ option }}">{{ filters.safe_search_titles[option] }}</option>
+                      {% endfor %}
                     </select>
                   </div>
                   <div id="captions-control" class="input-group filter-control" style="display:none">
                     <label for="captions">Captions</label><span class="remove-filter glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
                     <select disabled name="captions" class="form-control">
-                      <option>Any</option>
-                      <option>Only videos without captions</option>
-                      <option>Only videos with captions</option>
+                      {% for option in filters.caption_options %}
+                        <option value="{{ option }}">{{ filters.caption_titles[option] }}</option>
+                      {% endfor %}
                     </select>
                   </div>
                   <div id="category-control" class="input-group filter-control" style="display:none">
                     <label for="category">Category</label><span class="remove-filter glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
                     <select disabled name="category" class="form-control">
-                      <!-- TODO: Populate options with values from VideoCategories API call:
-                                https://developers.google.com/youtube/v3/docs/videoCategories -->
-                      <option>Film & Animation</option>
-                      <option>Autos & Vehicles</option>
-                      <option>Music</option>
-                      <option>More options here...</option>
+                      {% for option in filters.category_options %}
+                        <option value="{{ option }}">{{ filters.category_titles[option] }}</option>
+                      {% endfor %}
                     </select>
                   </div>
                   <div id="definition-control" class="input-group filter-control" style="display:none">
                     <label for="definition">Definition</label><span class="remove-filter glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
                     <select disabled name="definition" class="form-control">
-                      <option>Any</option>
-                      <option>Only HD videos</option>
-                      <option>Only SD videos</option>
+                      {% for option in filters.definition_options %}
+                        <option value="{{ option }}">{{ filters.definition_titles[option] }}</option>
+                      {% endfor %}
                     </select>
                   </div>
                   <div id="dimension-control" class="input-group filter-control" style="display:none">
                     <label for="dimension">Dimension</label><span class="remove-filter glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
                     <select disabled name="dimension" class="form-control">
-                      <option>Any</option>
-                      <option>Only 2D videos</option>
-                      <option>Only 3D videos</option>
+                      {% for option in filters.dimension_options %}
+                        <option value="{{ option }}">{{ filters.dimension_titles[option] }}</option>
+                      {% endfor %}
                     </select>
                   </div>
                   <div id="duration-control" class="input-group filter-control" style="display:none">
                     <label for="duration">Duration</label><span class="remove-filter glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
                     <select disabled name="duration" class="form-control">
-                      <option>Any</option>
-                      <option>Short (Less than 4 minutes long)</option>
-                      <option>Medium (Between 4 and 20 minutes long)</option>
-                      <option>Long (Over 20 minutes long)</option>
+                      {% for option in filters.duration_options %}
+                        <option value="{{ option }}">{{ filters.duration_titles[option] }}</option>
+                      {% endfor %}
                     </select>
                   </div>
                 </div>

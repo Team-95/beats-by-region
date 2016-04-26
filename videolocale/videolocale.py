@@ -20,7 +20,7 @@ app = Flask(__name__)
 
 @app.route('/', methods = ["GET"])
 def main_page():
-    return render_template('main.html', filters=Filters)
+    return render_template('main.html', filters=Filters())
 
 
 @app.route("/playlist", methods = ["POST", "GET"])

@@ -16,46 +16,43 @@ class YoutubeRequest:
         self.dimension = None
         self.duration = None
         
-
-class Filter:
-    class __metaclass__(type):
-        def __iter__(self):
-            for key, value in self.__dict__.iteritems():
-                if '__' not in key:
-                    yield value
-        
-        
-class FilterOption:
-
-    def __init__(self, filter_title, filter_url):
-        self.filter_title = filter_title
-        self.filter_url = filter_url
         
 class Filters:
-    event_type = {'completed': 'Completed broadcasts only', 'live': 'Live broadcasts only', 
+    event_type_options = ['completed', 'live', 'upcoming', 'all']
+    event_type_titles = {'completed': 'Completed broadcasts only', 'live': 'Live broadcasts only', 
         'upcoming': 'Upcoming broadcasts only', 'all': 'All videos'}
     
-    result_order = {'date': 'Date', 'rating': 'Rating', 'relevance': 'Relevance', 
+    result_order_options = ['date', 'rating', 'relevance', 'title', 'viewCount']
+    result_order_titles = {'date': 'Date', 'rating': 'Rating', 'relevance': 'Relevance', 
         'title': 'Title', 'viewCount': 'View Count'}
-       
-
-
-# Enum for video type filter
-class EventType(Filter):
-    Completed = FilterOption("Completed broadcasts only", "completed")
-    Live = FilterOption("Live broadcasts only", "live")
-    Upcoming = FilterOption("Upcoming broadcasts only", "upcoming")
-    All = FilterOption("All videos", "all")
-
-
-# Enum for result order filter
-class ResultOrder(Filter):
-    Date = FilterOption("Date", "date")
-    Rating = FilterOption("Rating", "rating")
-    Relevance = FilterOption("Relevance", "relevance")
-    Title = FilterOption("Title", "title")
-    ViewCount = FilterOption("View Count", "viewCount")
-
+        
+    safe_search_options = ['none', 'strict', 'moderate']
+    safe_search_titles = {'none': 'None', 'strict': 'Strict', 'moderate': 'Moderate'}
+    
+    caption_options = ['any', 'closedCaption', 'none']
+    caption_titles = {'any': 'Any', 'closedCaption': 'Only videos with captions', 
+        'none': 'Only videos without captions'}
+        
+    definition_options = ['any', 'high', 'standard']
+    definition_titles = {'any': 'Any', 'high': 'Only HD videos', 'standard': 'Only SD videos'}
+    
+    dimension_options = ['any', '2d', '3d']
+    dimension_titles = {'any': 'Any', '2d': 'Only 2D videos', '3d': 'Only 3D videos'}
+    
+    duration_options = ['any', 'long', 'medium', 'short']
+    duration_titles = {'any': 'Any length', 'long': 'Long (Over 20 minutes long)', 
+        'medium': 'Medium (Between 4 and 20 minutes long)', 'short': 'Short (Less than 4 minutes long)'}
+        
+    category_options = ['1', '2', '10', '15', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26',
+        '27', '28', '29', '30', '31', '32', '33', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44']
+    category_titles = {'1': 'Film and Animation', '2': 'Autos and Vehicles', '10': 'Music', '15': 'Pets and Animals',
+        '17': 'Sports', '18': 'Short Movies', '19': 'Travel and Events', '20': 'Gaming', '21': 'Videoblogging',
+        '22': 'People and Blogs', '23': 'Comedy', '24': 'Entertainment', '25': 'News and Politics', '26': 'How-to and Style',
+        '27': 'Education', '28': 'Science and Technology', '29': 'Non-profits and Activism', '30': 'Movies',
+        '31': 'Anime and Animation', '32': 'Action/Adventure', '33': 'Classics', '35': 'Documentary', '36': 'Drama',
+        '37': 'Family', '38': 'Foreign', '39': 'Horror', '40': 'Sci-fi and Fantasy', '41': 'Thriller', '42': 'Shorts',
+        '43': 'Shows', '44': 'Trailers'}
+    
 
 # Date range class for upload date range filter
 class DateRange:
@@ -69,75 +66,3 @@ class DateRange:
 
     def get_end_string(self):
         pass
-
-
-# Enum class for safe search filter
-class SafeSearch(Filter):
-    Nothing = FilterOption("None", "none") 
-    Strict = FilterOption("Strict", "strict")
-    Moderate = FilterOption("Moderate", "moderate")
-
-
-# enum class for captions filter
-class Captions(Filter):
-    Any = FilterOption("Any", "any")
-    OnlyCaptions = FilterOption("Only videos with captions", "closedCaption")
-    OnlyNoCaptions = FilterOption("Only videos without captions", "none")
-
-
-# enum class for definition filter
-class Definition(Filter):
-    Any = FilterOption("Any", "any")
-    High = FilterOption("Only HD videos", "high")
-    Standard = FilterOption("Only SD videos", "standard")
-
-
-# enum class for dimension filter
-class Dimension(Filter):
-    Any = FilterOption("Any", "any")
-    Two = FilterOption("Only 2D videos", "2d")
-    Three = FilterOption("Only 3D videos", "3d")
-
-
-# enum class for duration filter
-class Duration(Filter):
-    Any = FilterOption("Any length", "any")
-    Long = FilterOption("Long (Over 20 minutes long)", "long")
-    Medium = FilterOption("Medium (Between 4 and 20 minutes long)", "medium")
-    Short = FilterOption("Short (Less than 4 minutes long)", "short")
-
-
-# enum class for category  filter
-class Category(Filter):
-    FilmAndAnimation = FilterOption("Film and Animation", "1")
-    AutoAndVehicles = FilterOption("Autos and Vehicles", "2")
-    Music = FilterOption("Music", "10")
-    PetsAndAnimals = FilterOption("Pets and Animals", "15")
-    Sports = FilterOption("Sports", "17")
-    ShortMovies = FilterOption("Short Movies", "18")
-    TravelAndEvents = FilterOption("Travel and Events", "19")
-    Gaming = FilterOption("Gaming", "20")
-    Videoblogging = FilterOption("Videoblogging", "21")
-    PeopleAndBlogs = FilterOption("People and Blogs", "22")
-    Comedy = FilterOption("Comedy", "23")
-    Entertainment = FilterOption("Entertainment", "24")
-    NewsAndPolitics = FilterOption("News and Politics", "25")
-    HowtoAndStyle = FilterOption("How-to and Style", "26")
-    Education = FilterOption("Education", "27")
-    ScienceAndTechnology = FilterOption("Science and Technology", "28")
-    NonprofitsAndActivism = FilterOption("Non-profits and Activism", "29")
-    Movies = FilterOption("Movies", "30")
-    AnimeAndAnimation = FilterOption("Anime and Animation", "31")
-    ActionAdventure = FilterOption("Action/Adventure", "32")
-    Classics = FilterOption("Classics", "33")
-    #Comedy = "34"
-    Documentary = FilterOption("Documentary", "35")
-    Drama = FilterOption("Drama", "36")
-    Family = FilterOption("Family", "37")
-    Foreign = FilterOption("Foreign", "38")
-    Horror = FilterOption("Horror", "39")
-    ScifiAndFantasy = FilterOption("Sci-fi and Fantasy", "40")
-    Thriller = FilterOption("Thriller", "41")
-    Shorts = FilterOption("Shorts", "42")
-    Shows = FilterOption("Shows", "43")
-    Trailers = FilterOption("Trailers", "44")
