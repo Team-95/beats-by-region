@@ -75,6 +75,8 @@ map.on('draw:edited', function(e) {
 });
 
 map.on('draw:deleted', function(e) {
-  drawControlCircleDisabled.removeFrom(map);
-  drawControlCircleEnabled.addTo(map);
+  if (featureGroup.getLayers().length === MAXIMUM_NUM_REGIONS - 1) {
+    drawControlCircleDisabled.removeFrom(map);
+    drawControlCircleEnabled.addTo(map); 
+  }
 });
