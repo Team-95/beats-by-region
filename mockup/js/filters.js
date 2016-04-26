@@ -38,7 +38,7 @@ $(document).ready(function() {
     $(dropdownId).prop('disabled', false);
     
     // If all filters are now disabled, disable the generate button.
-    if ($('.filter-control:enabled').length == 0) {
+    if ($('.filter-control:enabled').length === 0) {
       $('#generate-button').prop('disabled', true);
     }
   });

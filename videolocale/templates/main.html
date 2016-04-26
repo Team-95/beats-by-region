@@ -67,7 +67,7 @@
                   <ul class="dropdown-menu" style="width: 100%;">
                     <li class="filter-menu-item" id="search-query-menu"><a href="#">Search Query</br>&nbsp;<small>Term(s) to search for</small></a></li>
                     <li class="filter-menu-item" id="num-results-menu"><a href="#">Number of Results</br>&nbsp;<small>Desired number of videos</small></a></li>
-                    <li class="filter-menu-item" id="video-type-menu"><a href="#">Type of Video</br>&nbsp;<small>Restrict to normal videos,</br>&nbsp;or completed/live broadcast</small></a></li>
+                    <li class="filter-menu-item" id="event-type-menu"><a href="#">Type of Video</br>&nbsp;<small>Restrict to normal videos,</br>&nbsp;or completed/live broadcast</small></a></li>
                     <li class="filter-menu-item" id="result-order-menu"><a href="#">Result Order</br>&nbsp;<small>Attribute to sort results by</small></a></li>
                     <li class="filter-menu-item" id="upload-date-menu"><a href="#">Upload Date Range</br>&nbsp;<small>Restrict videos to a particular</br>&nbsp;time period</small></a></li>
                     <li class="filter-menu-item" id="safe-search-menu"><a href="#">Safe Search</br>&nbsp;<small>Enable/disable restricted</br>&nbsp;content</small></a></li>
@@ -88,12 +88,12 @@
                     <label for="num-results">Number of Results</label><span class="remove-filter glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
                     <input disabled type="text" name="num-results" data-provide="slider" data-slider-min="1" data-slider-max="50" data-slider-step="1" data-slider-value="25">
                   </div>
-                  <div id="video-type-control" class="input-group filter-control" style="display:none">
-                    <label for="video-type">Video Type</label><span class="remove-filter glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
-                    <select disabled name="video-type" class="form-control">
-                      <option>All videos</option>
-                      <option>Live broadcasts only</option>
-                      <option>Completed broadcasts only</option>
+                  <div id="event-type-control" class="input-group filter-control" style="display:none">
+                    <label for="event-type">Video Type</label><span class="remove-filter glyphicon glyphicon-remove pull-right" aria-hidden="true"></span>
+                    <select disabled name="event-type" class="form-control">
+                      {% for value, title in filters.event_type.iteritems() %}
+                        <option value="{{ value }}">{{ title }}</option>
+                      {% endfor %}
                     </select>
                   </div>
                   <div id="result-order-control" class="input-group filter-control" style="display:none">

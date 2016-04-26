@@ -12,7 +12,7 @@
 """
 
 from flask import Flask, render_template, request
-from youtube_request import YoutubeRequest
+from youtube_request import YoutubeRequest, Filters
 from youtube_result import  YoutubeResult
 from http_manager import get_from_youtube
 
@@ -20,7 +20,7 @@ app = Flask(__name__)
 
 @app.route('/', methods = ["GET"])
 def main_page():
-    return render_template('main.html')
+    return render_template('main.html', filters=Filters)
 
 
 @app.route("/playlist", methods = ["POST", "GET"])
