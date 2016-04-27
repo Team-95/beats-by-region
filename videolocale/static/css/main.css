@@ -34,3 +34,7 @@
 .bootstrap-datetimepicker-widget {
   width: 100% !important;
 }
+
+.tooltip {
+  z-index: 10;
+}
