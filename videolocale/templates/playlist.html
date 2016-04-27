@@ -61,13 +61,13 @@
               <!-- Individual video (opened) -->
 
               {% for video in videos %}
-              <div class = "panel-body playlist-video-header" > {{ video.title }}</div>
+              <div class = "panel-body playlist-video-header" id = "{{video.id}}" > {{ video.title }}</div>
               <div class = "panel-body playlist-video-outside">
                 <div class = " well playlist-video-inside">
 
 
                     <div class = "playlist-video-embedded">
-                      <iframe class = "playlist-video-embedded-vid" id = "video"
+                      <iframe class = "playlist-video-embedded-vid" id = "{{video.id}}"
                       src="http://www.youtube.com/embed/{{ video.id }}"
                       allowscriptaccess = "always">
                       </iframe>
@@ -88,6 +88,19 @@
               </div>
 
               {% endfor %}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             </div>
           </div>

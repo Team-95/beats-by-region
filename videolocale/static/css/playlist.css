@@ -27,6 +27,14 @@
   background-color: hsl(210, 29%, 14%);
 }
 
+.playlist-video-outside-open{
+  display:block;
+}
+
+.playlist-video-outside.playlist-video-outside-open{  
+    display:block;
+}
+
 /*inside color and area for each opened video combine with well*/
 .playlist-video-inside {
   /*height: 337px;*/
