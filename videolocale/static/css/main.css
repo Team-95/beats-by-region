@@ -35,6 +35,8 @@
   width: 100% !important;
 }
 
+/* Sets the z-index of the bootstrap-slider tooltip to be lower than
+   the dropdown menu to prevent clipping. */
 .tooltip {
   z-index: 10;
 }
