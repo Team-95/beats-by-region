@@ -47,9 +47,11 @@ def _get_search_url(request):
     if request.result_order != None:
         url += "&order=" + request.result_order
 
-    if request.upload_date_range != None:
-        url += "&publishedAfter=" + request.upload_date_range.get_start_string()
-        url += "&publishedBefore=" + request.upload_date_range.get_end_string()
+    if request.published_after != None:
+        url += "&publishedAfter=" + request.published_after
+
+    if request.published_before != None:
+        url += "&publishedBefore=" + request.published_before
 
     if request.safe_search != None:
         url += "&safeSearch=" + request.safe_search
@@ -130,7 +132,23 @@ def _deserialize_video(json_text):
         result.latitude = location["latitude"]
         result.longitude = location["longitude"]
 
+        # change to publish date to something more presentable
+        publish_date = snippet["publishedAt"]
+        year = ""
+        month = ""
+        day = ""
+
+        year = publish_date[:4]
+        month = publish_date[5:7]
+        day = publish_date[8:10]
+
+
+        result.publish_date = __month_dictionary[month] + " " + day + ", " + year
+
         results.append(result)
         print(result)
 
     return results
+
+__month_dictionary = {"01":"Jan", "02":"Feb", "03":"Mar", "04":"Apr", "05":"May", "06":"Jun",
+                      "07":"Jul", "08":"Aug", "09":"Sept", "10":"Oct", "11":"Nov", "12":"Dec"}

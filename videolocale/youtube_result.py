@@ -10,3 +10,4 @@ class YoutubeResult:
         self.view_count = None
         self.latitude = None
         self.longitude = None
+        self.publish_date = None
