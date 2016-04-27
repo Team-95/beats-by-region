@@ -8,7 +8,8 @@ class YoutubeRequest:
         self.max_results = None
         self.event_type = None
         self.result_order = None
-        self.upload_date_range = None
+        self.published_after = None
+        self.published_before = None
         self.safe_search = None
         self.captions = None
         self.category = None
@@ -52,17 +53,3 @@ class Filters:
         '31': 'Anime and Animation', '32': 'Action/Adventure', '33': 'Classics', '35': 'Documentary', '36': 'Drama',
         '37': 'Family', '38': 'Foreign', '39': 'Horror', '40': 'Sci-fi and Fantasy', '41': 'Thriller', '42': 'Shorts',
         '43': 'Shows', '44': 'Trailers'}
-    
-
-# Date range class for upload date range filter
-class DateRange:
-    def __init__(self, start_date, end_date):
-        self.start_date = start_date
-        self.end_date = end_date
-
-
-    def get_start_string(self):
-        pass
-
-    def get_end_string(self):
-        pass
