@@ -87,6 +87,8 @@
   float: bottom;
   height: 211px;
   background-color: hsl(210, 29%, 34%);
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 /*unopened and unselected video header
