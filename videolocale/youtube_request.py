@@ -1,4 +1,3 @@
-
 # Data class for making youtube api call
 class YoutubeRequest:
     def __init__(self):

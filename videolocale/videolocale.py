@@ -16,6 +16,7 @@ from youtube_request import YoutubeRequest, Filters
 from youtube_result import  YoutubeResult
 from http_manager import get_from_youtube
 from os import environ
+import re
 
 app = Flask(__name__)
 
@@ -27,52 +28,63 @@ def main_page():
 @app.route("/playlist", methods = ["POST", "GET"])
 def playlist_page():
     if request.method == "POST": # if it's a POST we need to create a new list of videos
+        youtube_requests = list()
+        if "coordinates" in request.form:
+            regions = re.finditer("\[\((?P<lat_lng>-?\d+.?\d*,-?\d+.?\d*)\),(?P<radius>\d+.?\d*m)\]", request.form["coordinates"])
+            for region in regions:
+                youtube_request = YoutubeRequest()
+                youtube_request.location = region.group('lat_lng')
+                youtube_request.location_radius = region.group('radius')
+                youtube_requests.append(youtube_request)
+        else:
+            youtube_requests.append(YoutubeRequest())
 
-        youtube_request = YoutubeRequest()
-
-        # construct the youtube request object from the form parameters
-        # right now I'm just doing the query parameter
+        # construct the youtube request object(s) from the form parameters
         if "query" in request.form:
-            youtube_request.query = request.form["query"]
+            for youtube_request in youtube_requests:
+                youtube_request.query = request.form["query"]
 
         if "num-results" in request.form:
-            youtube_request.max_results = request.form["num-results"]
+            for youtube_request in youtube_requests:
+                youtube_request.max_results = request.form["num-results"]
 
         if "event-type" in request.form:
-            youtube_request.event_type = request.form["event-type"]
+            for youtube_request in youtube_requests:
+                youtube_request.event_type = request.form["event-type"]
 
         if "result-order" in request.form:
-            youtube_request.result_order = request.form["result-order"]
+            for youtube_request in youtube_requests:
+                youtube_request.result_order = request.form["result-order"]
 
         if "safe-search" in request.form:
-            youtube_request.safe_search = request.form["safe-search"]
+            for youtube_request in youtube_requests:
+                youtube_request.safe_search = request.form["safe-search"]
 
         if "captions" in request.form:
-            youtube_request.captions = request.form["captions"]
+            for youtube_request in youtube_requests:
+                youtube_request.captions = request.form["captions"]
 
         if "category" in request.form:
-            youtube_request.category = request.form["category"]
+            for youtube_request in youtube_requests:
+                youtube_request.category = request.form["category"]
 
         if "definition" in request.form:
-            youtube_request.definition = request.form["definition"]
+            for youtube_request in youtube_requests:
+                youtube_request.definition = request.form["definition"]
 
         if "dimension" in request.form:
-            youtube_request.dimension = request.form["dimension"]
+            for youtube_request in youtube_requests:
+                youtube_request.dimension = request.form["dimension"]
 
         if "duration" in request.form:
-            youtube_request.duration = request.form["duration"]
+            for youtube_request in youtube_requests:
+                youtube_request.duration = request.form["duration"]
 
-        #until I know how to get the location details from the map, I'll just use Seattle's
-        youtube_request.location = "47.6062,-122.3321"
-        youtube_request.location_radius = "1mi"
+        video_results = list()
+        for youtube_request in youtube_requests:
+            video_results.extend(get_from_youtube(youtube_request))
 
-        video_results = get_from_youtube(youtube_request)
-
-        return_string = ""
-        for result in video_results:
-            return_string += result.id + "<br>"
-
-        return render_template("playlist.html", videos = video_results)
+        return render_template("playlist.html", videos=video_results)
     else:                       # if it's a GET we need to display some generic information.
         return render_template("playlist.html")                    # in the future we could display previously created lists
 
