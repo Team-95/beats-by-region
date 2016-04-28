@@ -20,9 +20,11 @@ $(document).ready(function() {
   // date ranges can be selected.
   $('#datetimepicker-beginning').on('dp.change', function(e) {
     $('#datetimepicker-end').data('DateTimePicker').minDate(e.date);
+    assessGenerateButton();
   });
   $('#datetimepicker-end').on('dp.change', function(e) {
     $('#datetimepicker-beginning').data('DateTimePicker').maxDate(e.date);
+    assessGenerateButton();
   });
 
   // Remove filter that the clicked remove button is associated with,
@@ -37,10 +39,7 @@ $(document).ready(function() {
     $(dropdownId).removeClass('not-active');
     $(dropdownId).prop('disabled', false);
     
-    // If all filters are now disabled, disable the generate button.
-    if ($('.filter-control:enabled').length === 0) {
-      $('#generate-button').prop('disabled', true);
-    }
+    assessGenerateButton();
   });
 
   // Disable the dropdown menu item for the selected filter, and toggle
@@ -55,22 +54,42 @@ $(document).ready(function() {
     $(controlId).find('input').prop('disabled', false);
     $(controlId).find('select').prop('disabled', false);
     
-    // Enable generate button.
-    $('#generate-button').prop('disabled', false);
-    
-    // Check if enabled filter is a search query. If so, the generate button
-    // needs to be disabled until text is entered.
-    if ($(this).attr('id') == 'search-query-menu') {
-      $('#generate-button').prop('disabled', true);
-    }
+    assessGenerateButton();
   });
 
   // Disable generate button until text is entered into search box (if enabled).
   $('#search-query').on('keyup', function() {
-    if ($('#search-query').val().length > 0) {
-      $('#generate-button').prop('disabled', false);
-    } else {
-      $('#generate-button').prop('disabled', true);
-    }
+    assessGenerateButton();
   });
+  
+  // assessGenerateButton validates all input fields to ensure that valid data
+  // is entered. If the data is valid the generate button is enabled, otherwise
+  // the generate button is disabled.
+  function assessGenerateButton() {
+    if ($('.filter-control:visible').length === 0) {
+      // No filters are enabled. 
+      // Disable the generate button!
+      $('#generate-button').prop('disabled', true);
+      return;
+    }
+    if ($('#search-query-control').is(':visible')) {
+      if ($('#search-query').val().length === 0) {
+        // The search query filter has been enabled but no text has been entered.
+        // Disable the generate button!
+        $('#generate-button').prop('disabled', true);
+        return;
+      }
+    }
+    if ($('#upload-date-control').is(':visible')) {
+      if ($('#datetimepicker-beginning > :input').val().length === 0 || $('#datetimepicker-end > :input').val().length === 0) {
+        // The upload date filter has been enabled but both dates have not been selected yet.
+        // Disable the generate button!
+        $('#generate-button').prop('disabled', true);
+        return;
+      }
+    }
+    // If we make it to this point, then everything looks fine.
+    // Enable the generate button!
+    $('#generate-button').prop('disabled', false);
+  }
 });
