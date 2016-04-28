@@ -1,8 +1,11 @@
 import requests
 import json
+import re
+import datetime
 from youtube_request import *
 from youtube_result import *
 from os import environ
+import isodate
 
 
 _base_search_url = "https://www.googleapis.com/youtube/v3/search?"
@@ -128,27 +131,19 @@ def _deserialize_video(json_text):
         result.description= snippet["description"]
         result.thumbnail_url = thumbnails["default"]["url"]
         result.view_count = statistics["viewCount"]
-        result.duration = content_details["duration"]
         result.latitude = location["latitude"]
         result.longitude = location["longitude"]
 
         # change to publish date to something more presentable
         publish_date = snippet["publishedAt"]
-        year = ""
-        month = ""
-        day = ""
+        date = isodate.parse_date(publish_date)
+        result.publish_date = date.strftime("%b %d, %Y")
 
-        year = publish_date[:4]
-        month = publish_date[5:7]
-        day = publish_date[8:10]
-
-
-        result.publish_date = __month_dictionary[month] + " " + day + ", " + year
+        # make the duration prettier
+        duration = content_details["duration"]
+        seconds = isodate.parse_duration(duration).total_seconds()
+        result.duration = str(datetime.timedelta(seconds=seconds))
 
         results.append(result)
-        print(result)
 
     return results
-
-__month_dictionary = {"01":"Jan", "02":"Feb", "03":"Mar", "04":"Apr", "05":"May", "06":"Jun",
-                      "07":"Jul", "08":"Aug", "09":"Sept", "10":"Oct", "11":"Nov", "12":"Dec"}
