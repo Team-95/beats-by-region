@@ -60,7 +60,7 @@
 
 
               {% for video in videos %}
-              <div class = "panel-body playlist-video-header" id = "{{video.id}}" > {{ video.title }}</div>
+              <div class = "panel-body playlist-video-header" > {{ video.title }}</div>
               <div class = "panel-body playlist-video-outside">
                 <div class = " well playlist-video-inside">
 
@@ -68,7 +68,7 @@
                     <div class = "playlist-video-embedded">
                       <!-- took out source, added when video is viewed -->
                       <iframe class = "playlist-video-embedded-vid"
-
+                      id = "{{video.id}}"
                       allowscriptaccess = "always">
                       </iframe>
                     </div>
