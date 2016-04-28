@@ -35,9 +35,11 @@ def _get_search_url(request):
     url += "&type=video"
     url += "&videoEmbeddable=true"
 
-    url += "&location=" + request.location
+    if request.location != None:
+        url += "&location=" + request.location
 
-    url += "&locationRadius=" + request.location_radius
+    if request.location_radius != None:
+        url += "&locationRadius=" + request.location_radius
 
     if request.query != None:
         url += "&q=" + request.query
@@ -122,8 +124,14 @@ def _deserialize_video(json_text):
         snippet = item["snippet"]
         content_details = item["contentDetails"]
         statistics = item["statistics"]
-        location = item["recordingDetails"]["location"]
         thumbnails = snippet["thumbnails"]
+        recording_details = None
+        location = None
+
+        if "recordingDetails" in item:
+            recording_details = item["recordingDetails"]
+            if "location" in recording_details:
+                location = recording_details["location"]
 
         result.id = item["id"]
         result.title = snippet["title"]
@@ -131,8 +139,10 @@ def _deserialize_video(json_text):
         result.description= snippet["description"]
         result.thumbnail_url = thumbnails["default"]["url"]
         result.view_count = statistics["viewCount"]
-        result.latitude = location["latitude"]
-        result.longitude = location["longitude"]
+
+        if location != None:
+            result.latitude = location["latitude"]
+            result.longitude = location["longitude"]
 
         # change to publish date to something more presentable
         publish_date = snippet["publishedAt"]
