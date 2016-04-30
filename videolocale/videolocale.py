@@ -84,7 +84,7 @@ def playlist_page():
         for youtube_request in youtube_requests:
             video_results.extend(get_from_youtube(youtube_request))
 
-        return render_template("playlist.html", videos=video_results)
+        return render_template("playlist.html", videos=video_results, mapbox_api_key=environ['MAPBOX_API_KEY'])
     else:                       # if it's a GET we need to display some generic information.
         return render_template("playlist.html")                    # in the future we could display previously created lists
 

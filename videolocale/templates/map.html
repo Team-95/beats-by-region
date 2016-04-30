@@ -9,7 +9,7 @@
         var MAXIMUM_NUM_REGIONS = 5;
 
         L.mapbox.accessToken = '{{ mapbox_api_key }}';
-        var map = L.mapbox.map('map')
+        var map = L.mapbox.map('map','',{worldCopyJump: true})
             .setView([47.6097, -122.3331], 6);
         L.mapbox.styleLayer('mapbox://styles/team95/cinl2xhb6000ab1lzaofjjfqz').addTo(map);
         var featureGroup = L.featureGroup().addTo(map);

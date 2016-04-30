@@ -19,6 +19,11 @@
     <!-- Favicon -->
     <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}" type="image/x-icon">
     <link rel="icon" href="{{ url_for('static', filename='img/favicon.ico') }}" type="image/x-icon">
+    <!-- Mapbox -->
+    <script src="https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.js"></script>
+    <link href="https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.css" rel="stylesheet"/>
+    <link href="https://api.mapbox.com/mapbox.js/plugins/leaflet-draw/v0.2.3/leaflet.draw.css" rel="stylesheet"/>
+    <script src="https://api.mapbox.com/mapbox.js/plugins/leaflet-draw/v0.2.3/leaflet.draw.js"></script>
   </head>
 
   <body>
@@ -53,14 +58,40 @@
         </div>
 
         <div class="col-xs-10 col-sm-10 col-md-8 col-lg-8">
+
           <div class="panel panel-default" id="options-container">
             <div class = "panel-body playlist-body">
+
+              <div class="panel panel-default" style="height: 60vh;" id="map-container">
+                <div class= "well" id ="playlistMap" style = "height: 60vh;"></div>
+              </div>
+
+              <script type="text/javascript">
+                L.mapbox.accessToken = '{{ mapbox_api_key }}';
+                var map = L.mapbox.map('playlistMap','',{worldCopyJump:true})
+                    .setView([47.6097, -122.3331], 6);
+                L.mapbox.styleLayer('mapbox://styles/team95/cinl2xhb6000ab1lzaofjjfqz').addTo(map);
+                var featureGroup = L.featureGroup().addTo(map);
+                console.log(map);
+              </script>
+
               <!-- caps of all of the videos because video headers use the border of the header above themselves
               <div class = "playlist-video-header-top"></div>
               <div style = "border-bottom-style: solid; border-color: hsl(210, 45%, 0%);"></div>-->
 
-
               {% for video in videos %}
+              <script type="text/javascript">
+                //L.marker([{{video.longitude}},{{video.latitude}}]).addTo(map);
+                var lat = {{video.latitude}};
+                var lon = {{video.longitude}};
+                var marker = L.marker([lat,lon]).bindPopup('{{video.title}}').addTo(map);
+                //console.log('video');
+                //console.log(marker);
+                //console.log(lat);
+                //console.log(lon);
+
+              </script>
+
               <div class = "panel-body playlist-video-header" > {{ video.title }}</div>
               <div class = "panel-body playlist-video-outside">
                 <div class = " well playlist-video-inside">
