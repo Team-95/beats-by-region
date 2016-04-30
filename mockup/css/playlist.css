@@ -55,9 +55,10 @@
 
 /*embeded video div*/
 .playlist-video-embedded{
+  float:left;
    height: 315px;
    width: 420px;
-   position: absolute;
+   /*background-color: hsl(300,100%,50%);*/
 }
 
 .playlist-video-embedded-vid{
@@ -71,20 +72,20 @@
   width: auto;
   min-width: 280px;
   margin-left: 430px;
-  background-color: hls(0,0%,50%);
+  /*background-color: hsl(0,100%,50%);*/
 }
 
 /*artist, album, length, ect.*/
 .playlist-video-info {
-  float: top;
+  /*float: top;*/
   height: 96px;
   margin-bottom: 10px;
-  color: hsl(210, 29%, 14%)
+  color: hsl(210, 29%, 14%);
 }
 
 /*popularity, hotness, ect. RIP Echonest ;( */
 .playlist-video-description {
-  float: bottom;
+  /*float: bottom;*/
   height: 211px;
   background-color: hsl(210, 29%, 34%);
 }
@@ -102,6 +103,7 @@ playlist should have a blank div with bottom border to "cap" all the videos*/
 }
 
 .playlist-video-header-top{
+  border-color: hsl(210, 29%, 0%);
   border-top-style: solid;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
@@ -117,6 +119,21 @@ playlist should have a blank div with bottom border to "cap" all the videos*/
   cursor: pointer;
   background-color: hsl(210, 29%, 14%);
   color: hsl(210,29%,90%);
+}
+
+
+@media all and (max-width: 900px){
+  .playlist-video-embedded{
+    float:left;
+  }
+  .playlist-video-text{
+    clear:left;
+    margin-left: 0px;
+    min-width: 420px;
+  }
+  .playlist-video-inside{
+    overflow-y: auto;
+  }
 }
 /* hsl(210, 29%, 34%) light bg*/
 /* hsl(210, 29%, 24%) default */
