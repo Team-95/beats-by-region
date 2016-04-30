@@ -1,25 +1,33 @@
 $(document).ready(function() {
+  //find and style first header
+  $('.playlist-video-header').first().addClass('playlist-video-header-top');
+
+  //find and style last header
+  $('.playlist-video-header').last().addClass('playlist-video-header-bottom');
+  $('.playlist-video-outside').last().addClass('playlist-video-header-bottom');
+
   //expand individual song
   $('.playlist-video-header').click(function(){
     var $next = $(this).next('.playlist-video-outside');
     $('.playlist-video-outside').not($next).removeClass('playlist-video-outside-open');
     $($next).toggleClass('playlist-video-outside-open');
 
+    //makes the last video header rounded if video window is closed
+    var bottom = ""
+    if($($next).hasClass('playlist-video-header-bottom')){
+        bottom = 'playlist-video-header-bottom'
+    }
+    $(this).toggleClass(bottom);
+
     var video = $next.find('iframe');
-    //load video (a little slow)
+    //Open video - load video (a little slow)
     if (($next).hasClass('playlist-video-outside-open')){
       var link = $(video).attr('id');
       $(video).attr('src','http://www.youtube.com/embed/'+link);
     }
-    //delete video
+    //Close video - delete video
     else{
       $(video).attr("src","");
     }
-
-
-    //var video = $('#video');
-    //var vidURL = $(video).attr("src");
-    //$("#video").attr("src","");
-    //$("#video").attr("src",vidURL);
   });
 });

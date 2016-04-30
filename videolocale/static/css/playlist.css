@@ -37,7 +37,6 @@
 
 /*inside color and area for each opened video combine with well*/
 .playlist-video-inside {
-  /*height: 337px;*/
   width: 100%;
   height: 100%;
   position: relative;
@@ -50,22 +49,14 @@
   border-width: 10px;
   border-bottom-width: 0px;
   color: hsl(210, 29%, 90%);
-  /*background-color: hsl(210, 34%, 72%);*/
 }
-
-/*
-.playlist-video-inside-scroll{
-  width:100%;
-  height: 100%;
-  overflow-x: auto;
-
-}*/
 
 /*embeded video div*/
 .playlist-video-embedded{
-   height: 315px;
-   width: 420px;
-   position: absolute;
+  float: left;
+  display:block;
+  height: 315px;
+  width: 420px;
 }
 
 .playlist-video-embedded-vid{
@@ -80,20 +71,21 @@
   min-width: 275px;
   margin-left: 430px;
   background-color: hls(0,0%,50%);
+  display:flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 /*artist, album, length, ect.*/
 .playlist-video-info {
-  float: top;
-  height: 96px;
   margin-bottom: 10px;
-  color: hsl(210, 29%, 14%)
+  color: hsl(210, 29%, 14%);
 }
 
 /*popularity, hotness, ect. RIP Echonest ;( */
 .playlist-video-description {
-  float: bottom;
-  height: 211px;
+  flex:1;
+  margin:0px;
   background-color: hsl(210, 29%, 34%);
   overflow-y: auto;
   overflow-x: hidden;
@@ -115,6 +107,7 @@ playlist should have a blank div with bottom border to "cap" all the videos*/
   border-top-style: solid;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
+  border-color: hsl(210, 29%, 0%);
 }
 
 .playlist-video-header-bottom{
@@ -127,6 +120,30 @@ playlist should have a blank div with bottom border to "cap" all the videos*/
   cursor: pointer;
   background-color: hsl(210, 29%, 14%);
   color: hsl(210,29%,90%);
+}
+
+@media all and (max-width: 1263px){
+  .playlist-video-embedded{
+    margin: auto;
+    float:none;
+    margin-bottom: 10px;
+  }
+  .playlist-video-text{
+    margin:auto;
+    height: auto;
+    margin-right: 10px;
+    /*width: 420px;*/
+  }
+  .playlist-video-description{
+    height: 100%;
+  }
+  .playlist-video-inside{
+    overflow-y: auto;
+    padding-bottom: 0px;
+    border-bottom-width: 10px;
+    //border-right-style: none;
+    padding-right: 0px;
+  }
 }
 /* hsl(210, 29%, 34%) light bg*/
 /* hsl(210, 29%, 24%) default */
