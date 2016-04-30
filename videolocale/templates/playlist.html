@@ -72,7 +72,7 @@
                     .setView([47.6097, -122.3331], 6);
                 L.mapbox.styleLayer('mapbox://styles/team95/cinl2xhb6000ab1lzaofjjfqz').addTo(map);
                 var featureGroup = L.featureGroup().addTo(map);
-                console.log(map);
+                //console.log(map);
               </script>
 
               <!-- caps of all of the videos because video headers use the border of the header above themselves
@@ -84,7 +84,11 @@
                 //L.marker([{{video.longitude}},{{video.latitude}}]).addTo(map);
                 var lat = {{video.latitude}};
                 var lon = {{video.longitude}};
-                var marker = L.marker([lat,lon]).bindPopup('{{video.title}}').addTo(map);
+                var marker = L.marker([lat,lon],{icon: L.mapbox.marker.icon({
+                  'marker-color': '#7BB14E'
+                })})
+                .bindPopup('{{video.title}}')//should we have this? im concerned about privacy.
+                .addTo(map);
                 //console.log('video');
                 //console.log(marker);
                 //console.log(lat);
