@@ -1,4 +1,8 @@
 /*playlist heading (name, ~#videos, ~runtime)*/
+#playlist-column{
+  min-width: 480px;
+}
+
 .playlist-header{
   border-color: hsl(0, 0%, 80%);
   border-bottom-style: solid;
@@ -12,7 +16,7 @@
   border-radius: 5px;
   border-width: 16px;
   border-bottom-width: 0px;
-  border-color: hls(0,0%,100%);
+  border-color: hsl(0,0%,100%);
 }
 /*outside color and area for each opened video*/
 .playlist-video-outside {
@@ -70,7 +74,6 @@
   width: auto;
   min-width: 275px;
   margin-left: 430px;
-  background-color: hls(0,0%,50%);
   display:flex;
   flex-direction: column;
   justify-content: space-between;
@@ -143,6 +146,22 @@ playlist should have a blank div with bottom border to "cap" all the videos*/
     border-bottom-width: 10px;
     //border-right-style: none;
     padding-right: 0px;
+  }
+}
+
+@media all and (max-width: 480px){
+  .playlist-body{
+    margin: 0px;
+  }
+  .playlist-video-outside{
+    padding:0px;
+  }
+  .playlist-video-inside{
+    border-width: 0px;
+    overflow-x: hidden;
+  }
+  .playlist-video-text{
+    marigin:0px;
   }
 }
 /* hsl(210, 29%, 34%) light bg*/

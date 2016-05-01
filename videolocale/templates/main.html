@@ -57,9 +57,9 @@
     </nav>
 
     <div class="container-fluid">
-      <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-2">
-          <div class="panel panel-default" style="height: 85vh;" id="options-container">
+      <div class="row" id="rows-to-columns">
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-2" id = "options-column">
+          <div class="panel panel-default" id="options-container">
             <div class="panel-body">
               <form action = "playlist" method="POST">
                 <div class="btn-group btn-block">
@@ -176,9 +176,9 @@
           </div>
         </div>
 
-        <div class="col-xs-12 col-sm-12 col-md-9 col-lg-10">
-          <div class="panel panel-default" style="height: 85vh;" id="map-container">
-            <div class="well" id="map" style="height: 85vh;"></div>
+        <div class="col-xs-12 col-sm-12 col-md-9 col-lg-10" id = "map-column">
+          <div class="panel panel-default" id="map-container">
+            <div class="well" id="map"></div>
           </div>
         </div>
 
@@ -204,7 +204,7 @@
 
     <!-- Filters -->
     <script src="{{ url_for('static', filename='js/filters.js') }}"></script>
-    
+
     {% include 'map.html' %}
   </body>
 

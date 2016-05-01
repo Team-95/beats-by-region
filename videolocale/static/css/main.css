@@ -40,3 +40,43 @@
 .tooltip {
   z-index: 10;
 }
+
+
+#options-container{
+  height: 85vh;
+}
+
+#map-container{
+  height: 85vh;
+}
+
+#map{
+  height: 85vh;
+}
+
+/*moves options below map when mobile*/
+@media all and (max-width: 1009px){
+  #rows-to-columns{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  #options-column{
+    order: 2;
+  }
+  #options-container{
+    height: auto;
+  }
+  #filter-container{
+    height:auto;
+  }
+  #map-column{
+    order:1;
+  }
+  #map-container{
+    height: 60vh;
+  }
+  #map{
+    height: 60vh;
+  }
+}
