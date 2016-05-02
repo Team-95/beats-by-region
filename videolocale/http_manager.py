@@ -12,20 +12,19 @@ _base_search_url = "https://www.googleapis.com/youtube/v3/search?"
 _base_videos_url = "https://www.googleapis.com/youtube/v3/videos?"
 _api_key = environ["YOUTUBE_API_KEY"]
 
-def get_from_youtube(request):
-
-    result_list = []
-
+def search_youtube(request):
     search_url = _get_search_url(request)
     search_response = requests.get(search_url)
-    id_list = _deserialize_search(search_response.text)
 
-    videos_url = _get_videos_url(id_list)
+    return _deserialize_search(search_response.text)
+    
+
+def get_from_youtube(video_ids):  
+    videos_url = _get_videos_url(video_ids)
     videos_response = requests.get(videos_url)
-    result_list = _deserialize_video(videos_response.text)
-
-    return result_list
-
+    
+    return _deserialize_video(videos_response.text)
+    
 
 #from the request object, construct a youtube api url
 def _get_search_url(request):
@@ -92,10 +91,7 @@ def _get_videos_url(ids):
     url += ",recordingDetails" # for getting the coordinates
     url += ",statistics" # for getting view count
 
-    url += "&id="
-    for id in ids:
-        url += id + ","
-
+    url += "&id=" + ids
 
     return url
 

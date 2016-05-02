@@ -11,83 +11,130 @@
     :license: MIT, see LICENSE for more details.
 """
 
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 from youtube_request import YoutubeRequest, Filters
 from youtube_result import  YoutubeResult
-from http_manager import get_from_youtube
-from os import environ
+from http_manager import search_youtube, get_from_youtube
+from os import environ, getenv
 import re
+import redis
 
 app = Flask(__name__)
+r = None
+offline_r = dict()
+test_without_redis = getenv("TEST_VIDEOLOCALE_OFFLINE", False)
 
-@app.route('/', methods = ["GET"])
+if not test_without_redis:
+    r = redis.StrictRedis(host='localhost', port=6379, db=0)
+
+@app.route('/', methods=["GET"])
 def main_page():
     return render_template('main.html', filters=Filters(), mapbox_api_key=environ['MAPBOX_API_KEY'])
 
 
-@app.route("/playlist", methods = ["POST", "GET"])
-def playlist_page():
-    if request.method == "POST": # if it's a POST we need to create a new list of videos
-        youtube_requests = list()
-        if "coordinates" in request.form:
-            regions = re.finditer("\[\((?P<lat_lng>-?\d+.?\d*,-?\d+.?\d*)\),(?P<radius>\d+.?\d*m)\]", request.form["coordinates"])
-            for region in regions:
-                youtube_request = YoutubeRequest()
-                youtube_request.location = region.group('lat_lng')
-                youtube_request.location_radius = region.group('radius')
-                youtube_requests.append(youtube_request)
+@app.route("/generate", methods=["POST"])
+def generate_playlist():
+    # Generate page id for this new request
+    id_is_used = True
+    id = None
+    while id_is_used:
+        id = uniqid()
+        result = None
+        if test_without_redis:
+            try:
+                result = offline_r[id]
+            except KeyError:
+                result = None
         else:
-            youtube_requests.append(YoutubeRequest())
+            result = r.get(id)
+        if result is None:
+            id_is_used = False
 
-        # construct the youtube request object(s) from the form parameters
-        if "query" in request.form:
-            for youtube_request in youtube_requests:
-                youtube_request.query = request.form["query"]
+    youtube_requests = list()
+    if "coordinates" in request.form:
+        regions = re.finditer("\[\((?P<lat_lng>-?\d+.?\d*,-?\d+.?\d*)\),(?P<radius>\d+.?\d*m)\]", request.form["coordinates"])
+        for region in regions:
+            youtube_request = YoutubeRequest()
+            youtube_request.location = region.group('lat_lng')
+            youtube_request.location_radius = region.group('radius')
+            youtube_requests.append(youtube_request)
+    else:
+        youtube_requests.append(YoutubeRequest())
 
-        if "num-results" in request.form:
-            for youtube_request in youtube_requests:
-                youtube_request.max_results = request.form["num-results"]
-
-        if "event-type" in request.form:
-            for youtube_request in youtube_requests:
-                youtube_request.event_type = request.form["event-type"]
-
-        if "result-order" in request.form:
-            for youtube_request in youtube_requests:
-                youtube_request.result_order = request.form["result-order"]
-
-        if "safe-search" in request.form:
-            for youtube_request in youtube_requests:
-                youtube_request.safe_search = request.form["safe-search"]
-
-        if "captions" in request.form:
-            for youtube_request in youtube_requests:
-                youtube_request.captions = request.form["captions"]
-
-        if "category" in request.form:
-            for youtube_request in youtube_requests:
-                youtube_request.category = request.form["category"]
-
-        if "definition" in request.form:
-            for youtube_request in youtube_requests:
-                youtube_request.definition = request.form["definition"]
-
-        if "dimension" in request.form:
-            for youtube_request in youtube_requests:
-                youtube_request.dimension = request.form["dimension"]
-
-        if "duration" in request.form:
-            for youtube_request in youtube_requests:
-                youtube_request.duration = request.form["duration"]
-
-        video_results = list()
+    # construct the youtube request object(s) from the form parameters
+    if "query" in request.form:
         for youtube_request in youtube_requests:
-            video_results.extend(get_from_youtube(youtube_request))
+            youtube_request.query = request.form["query"]
 
-        return render_template("playlist.html", videos=video_results, mapbox_api_key=environ['MAPBOX_API_KEY'])
-    else:                       # if it's a GET we need to display some generic information.
-        return render_template("playlist.html")                    # in the future we could display previously created lists
+    if "num-results" in request.form:
+        for youtube_request in youtube_requests:
+            youtube_request.max_results = request.form["num-results"]
 
+    if "event-type" in request.form:
+        for youtube_request in youtube_requests:
+            youtube_request.event_type = request.form["event-type"]
+
+    if "result-order" in request.form:
+        for youtube_request in youtube_requests:
+            youtube_request.result_order = request.form["result-order"]
+
+    if "safe-search" in request.form:
+        for youtube_request in youtube_requests:
+            youtube_request.safe_search = request.form["safe-search"]
+
+    if "captions" in request.form:
+        for youtube_request in youtube_requests:
+            youtube_request.captions = request.form["captions"]
+
+    if "category" in request.form:
+        for youtube_request in youtube_requests:
+            youtube_request.category = request.form["category"]
+
+    if "definition" in request.form:
+        for youtube_request in youtube_requests:
+            youtube_request.definition = request.form["definition"]
+
+    if "dimension" in request.form:
+        for youtube_request in youtube_requests:
+            youtube_request.dimension = request.form["dimension"]
+
+    if "duration" in request.form:
+        for youtube_request in youtube_requests:
+            youtube_request.duration = request.form["duration"]
+
+    video_ids = list()
+    for youtube_request in youtube_requests:
+        video_ids.extend(search_youtube(youtube_request))
+        
+    video_ids_string = ""
+    for id in video_ids:
+        video_ids_string += id + ","
+    video_ids_string = video_ids_string[:-1]
+    if test_without_redis:
+        offline_r[id] = video_ids_string
+    else:
+        r.set(id, video_ids_string)
+    
+    return redirect(url_for("playlist_page", id=id))
+
+@app.route("/playlist/<id>", methods=["GET"])
+def playlist_page(id = None):
+    video_ids = None
+    if test_without_redis:
+        try:
+            video_ids = offline_r[id]
+        except KeyError:
+            video_ids = None
+    else:
+        video_ids = r.get(id)
+    video_results = get_from_youtube(video_ids)
+    
+    return render_template("playlist.html", videos=video_results, mapbox_api_key=environ["MAPBOX_API_KEY"])
+
+
+def uniqid():
+	from time import time
+	return hex(int(time()*10000000))[2:-2]
 
 if __name__ == '__main__':
     app.debug = True
