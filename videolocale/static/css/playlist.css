@@ -1,6 +1,6 @@
 /*playlist heading (name, ~#videos, ~runtime)*/
 #playlist-column{
-  min-width: 480px;
+  min-width: 450px;
 }
 
 .playlist-header{
@@ -9,8 +9,9 @@
   background-color: hsl(210, 34%, 72%);
 }
 .playlist-body{
-  height: 85vh;
-  overflow-y: auto;
+  margin-top: 5vh;
+  margin-bottom: 5vh;
+  overflow: auto;
   padding: 0;
   margin:16px;
   border-radius: 5px;
@@ -149,7 +150,10 @@ playlist should have a blank div with bottom border to "cap" all the videos*/
   }
 }
 
-@media all and (max-width: 480px){
+@media all and (max-width: 702px){
+  #playlist-column{
+    padding:0px;
+  }
   .playlist-body{
     margin: 0px;
   }

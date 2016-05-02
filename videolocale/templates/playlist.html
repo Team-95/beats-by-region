@@ -59,7 +59,7 @@
 
         <div class="col-xs-10 col-sm-10 col-md-8 col-lg-8" id = "playlist-column">
 
-          <div class="panel panel-default" id="options-container">
+          <div class="panel panel-default">
             <div class = "panel-body playlist-body">
 
               <div class="panel panel-default" style="height: 60vh;" id="map-container">
@@ -72,6 +72,12 @@
                     .setView([47.6097, -122.3331], 6);
                 L.mapbox.styleLayer('mapbox://styles/team95/cinl2xhb6000ab1lzaofjjfqz').addTo(map);
                 var featureGroup = L.featureGroup().addTo(map);
+                var markerArray = [];
+                var minLat = 90;
+                var maxLat = -90;
+                var minLon = 180;
+                var maxLon = -180;
+
                 //console.log(map);
               </script>
 
@@ -81,18 +87,36 @@
 
               {% for video in videos %}
               <script type="text/javascript">
-                //L.marker([{{video.longitude}},{{video.latitude}}]).addTo(map);
                 var lat = {{video.latitude}};
                 var lon = {{video.longitude}};
+
+                markerArray.forEach(function(markers){
+                  var location = markers.getLatLng();
+                  var oldLat = location.lat;
+                  var oldLon = location.lng;
+                  if ((lat == oldLat) && (lon == oldLon)){
+                    lat = lat - 0.0001;
+                  }
+                });
+
+                if (lat < minLat){
+                  minLat = lat;
+                }
+                if (lat > maxLat){
+                  maxLat = lat;
+                }
+                if (lon < minLon){
+                  minLon = lon;
+                }
+                if (lon > maxLon){
+                  maxLon = lon;
+                }
                 var marker = L.marker([lat,lon],{icon: L.mapbox.marker.icon({
                   'marker-color': '#7BB14E'
                 })})
                 .bindPopup('{{video.title}}')//should we have this? im concerned about privacy.
                 .addTo(map);
-                //console.log('video');
-                //console.log(marker);
-                //console.log(lat);
-                //console.log(lon);
+                markerArray.push(marker);
 
               </script>
 
@@ -119,11 +143,15 @@
                     </div>
 
 
-
                 </div>
               </div>
 
               {% endfor %}
+              <script type="text/javascript">
+                //resize map (buffer for marker height)
+                var buff = (maxLat - minLat)/100;
+                map.fitBounds([[minLat,minLon],[maxLat+buff,maxLon]]);
+              </script>
             </div>
           </div>
         </div>
