@@ -6,15 +6,15 @@ $(document).ready(function() {
   $('#datetimepicker-end').datetimepicker({
     useCurrent: false
   });
-  
+
   // Set minimum datetime of beginning time picker to the date of the
   // first ever YouTube video (April 23, 2005).
   // https://youtube.com/watch?v=jNQXAC9IVRw
   $('#datetimepicker-beginning').data('DateTimePicker').minDate(new Date('April 23, 2005'));
-  
+
   // Set maximum datetime of ending time picker to the current datetime.
   $('#datetimepicker-end').data('DateTimePicker').maxDate(new Date());
-  
+
 
   // Link the two datetimepickers together to ensure that no illegal
   // date ranges can be selected.
@@ -38,7 +38,7 @@ $(document).ready(function() {
     $(dropdownId).removeClass('disabled');
     $(dropdownId).removeClass('not-active');
     $(dropdownId).prop('disabled', false);
-    
+
     assessGenerateButton();
   });
 
@@ -53,7 +53,7 @@ $(document).ready(function() {
     $(controlId).toggle();
     $(controlId).find('input').prop('disabled', false);
     $(controlId).find('select').prop('disabled', false);
-    
+
     assessGenerateButton();
   });
 
@@ -61,13 +61,13 @@ $(document).ready(function() {
   $('#search-query').on('keyup', function() {
     assessGenerateButton();
   });
-  
+
   // assessGenerateButton validates all input fields to ensure that valid data
   // is entered. If the data is valid the generate button is enabled, otherwise
   // the generate button is disabled.
   function assessGenerateButton() {
     if ($('.filter-control:visible').length === 0) {
-      // No filters are enabled. 
+      // No filters are enabled.
       // Disable the generate button!
       $('#generate-button').prop('disabled', true);
       return;

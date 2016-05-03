@@ -125,7 +125,7 @@ playlist should have a blank div with bottom border to "cap" all the videos*/
   background-color: hsl(210, 29%, 14%);
   color: hsl(210,29%,90%);
 }
-
+/*moves video text below embedded video*/
 @media all and (max-width: 1263px){
   .playlist-video-embedded{
     margin: auto;
@@ -149,7 +149,7 @@ playlist should have a blank div with bottom border to "cap" all the videos*/
     padding-right: 0px;
   }
 }
-
+/*changes margins for small width viewports*/
 @media all and (max-width: 702px){
   #playlist-column{
     padding:0px;

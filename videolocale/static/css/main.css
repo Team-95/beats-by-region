@@ -1,4 +1,10 @@
 /* Sets 100% width for filter controls and adds a margin to top and bottom. */
+body{
+  height: 100%;
+  width: 100%;
+  margin: 0;
+}
+
 .filter-control {
   width: 100%;
   margin-bottom: 20px;
@@ -23,11 +29,12 @@
 
 /* Scrollable container for filters. */
 #filter-container {
-  height: 68vh;
-  width: 100%;
+  flex:1;
+  margin: 0;
+  margin-top: 1.5vh;
+  margin-bottom: 1.5vh;
   overflow: auto;
   overflow-x: hidden;
-
 }
 
 /* Fit datetimepickers within filter wrapper to avoid clipping. */
@@ -41,42 +48,92 @@
   z-index: 10;
 }
 
+#rows-to-columns{
+  position: absolute;
+  top: 60px;
+  bottom: 0;
+  width: 100%;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  padding: 1vw;
+
+}
 
 #options-container{
-  height: 85vh;
+  /*height: 85vh;*/
+  min-width: 20em;
+  margin-bottom: 0px;
+  position:relative;
+}
+
+#options-form{
+  position:absolute;
+  top: 0;
+  bottom:0;
+  width:100%;
+  display: flex;
+  flex-direction: column;
+  justify-content:space-around;
 }
 
 #map-container{
-  height: 85vh;
+  /*height: 86vh;*/
+  margin-left: 1.5vw;
+  margin-bottom: 0px;
+  flex:1;
+  position: relative;
 }
 
 #map{
-  height: 85vh;
+  position: absolute;
+  top:0;
+  bottom:0;
+  width: 100%;
+  margin: 0px;
 }
 
 /*moves options below map when mobile*/
 @media all and (max-width: 1009px){
   #rows-to-columns{
+    position: static;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    margin-top: -21px;
   }
   #options-column{
     order: 2;
   }
   #options-container{
+    position: static;
     height: auto;
+    order: 2;
+  }
+  #options-form{
+    position: static;
+    display: block;
   }
   #filter-container{
+    min-height: 500px;
     height:auto;
   }
   #map-column{
+    /*width: 95vw;
+    flex:none;*/
     order:1;
   }
   #map-container{
+    position: static;
     height: 60vh;
+    margin: 0px;
+    margin-bottom: 1.5vw;
+    order:1;
   }
   #map{
+    position: relative;
+    width: 100%;
     height: 60vh;
   }
 }

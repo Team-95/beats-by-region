@@ -2,7 +2,7 @@ $(document).ready(function() {
   //find and style first header
   $('.playlist-video-header').first().addClass('playlist-video-header-top');
 
-  //find and style last header
+  //find and style last header and video
   $('.playlist-video-header').last().addClass('playlist-video-header-bottom');
   $('.playlist-video-outside').last().addClass('playlist-video-header-bottom');
 
@@ -19,15 +19,14 @@ $(document).ready(function() {
     }
     $(this).toggleClass(bottom);
 
-    var video = $next.find('iframe');
+    //delete all videos
+    $('iframe').attr("src","");
+
     //Open video - load video (a little slow)
+    var video = $next.find('iframe');
     if (($next).hasClass('playlist-video-outside-open')){
       var link = $(video).attr('id');
       $(video).attr('src','http://www.youtube.com/embed/'+link);
-    }
-    //Close video - delete video
-    else{
-      $(video).attr("src","");
     }
   });
 });

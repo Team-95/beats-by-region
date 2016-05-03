@@ -28,7 +28,7 @@
 
   <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-default navbar-static-top">
+    <nav class="navbar navbar-default navbar-static-top" style = "margin-bottom:0;">
       <div class="container-fluid">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapsed" aria-expanded="false">
@@ -37,8 +37,8 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="{{ url_for('main_page') }}">
-            <span><img alt="VideoLocale" src="{{ url_for('static', filename='img/vl_logo_small.png') }}" style="margin-top: -8px; margin-right: 5px;"></span> VideoLocale
+          <a class="navbar-brand" href="{{ url_for('main_page') }}" style = "padding: 14px;">
+            <span><img alt="VideoLocale" src="{{ url_for('static', filename='img/vl_logo_small.png') }}" style="margin-top: -5px; margin-right: 12px;"></span>VideoLocale
           </a>
         </div>
 
