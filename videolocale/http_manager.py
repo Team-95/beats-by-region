@@ -1,3 +1,16 @@
+# -*- coding: utf-8 -*-
+
+"""
+    Video Locale
+    ------------
+
+    A website that generates YouTube playlists based on selected
+    geographical regions.
+
+    :copyright: (c) 2016 Team 95.
+    :license: MIT, see LICENSE for more details.
+"""
+
 import requests
 import json
 import re
@@ -13,21 +26,27 @@ _base_videos_url = "https://www.googleapis.com/youtube/v3/videos?"
 _api_key = environ["YOUTUBE_API_KEY"]
 
 def search_youtube(request):
+    """ Searches YouTube with the given request object and returns a 
+        list of video ids that fit the filters given in the request object. """
+        
     search_url = _get_search_url(request)
     search_response = requests.get(search_url)
 
     return _deserialize_search(search_response.text)
     
 
-def get_from_youtube(video_ids):  
+def get_from_youtube(video_ids):
+    """ Retrieves more detailed metadata for the video ids provided. """
+      
     videos_url = _get_videos_url(video_ids)
     videos_response = requests.get(videos_url)
     
     return _deserialize_video(videos_response.text)
     
 
-#from the request object, construct a youtube api url
 def _get_search_url(request):
+    """ Constructs a YouTube search API URL from a request object. """
+    
     url = _base_search_url
     url += "key=" + _api_key
     url += "&part=snippet"
@@ -82,6 +101,8 @@ def _get_search_url(request):
 
 
 def _get_videos_url(ids):
+    """ Constructs a YouTube video API URL from a 
+        comma-separated list of ids. """
 
     url = _base_videos_url;
     url += "key=" + _api_key
@@ -96,8 +117,9 @@ def _get_videos_url(ids):
     return url
 
 
-# make the json text into a YoutubeResult object
 def _deserialize_search(json_text):
+    """ Parses JSON and deserializes it into a list of video ids. """
+    
     ids = []
     parsed_json = json.loads(json_text)
 
@@ -109,13 +131,15 @@ def _deserialize_search(json_text):
 
 
 def _deserialize_video(json_text):
+    """ Parses JSON and deserializes it into a list of YouTubeResult objects. """
+    
     results = []
 
     parsed_json = json.loads(json_text)
 
     items = parsed_json["items"]
     for item in items:
-        result = YoutubeResult()
+        result = YouTubeResult()
 
         snippet = item["snippet"]
         content_details = item["contentDetails"]

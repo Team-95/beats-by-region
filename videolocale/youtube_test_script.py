@@ -1,4 +1,17 @@
-import  http_manager
+# -*- coding: utf-8 -*-
+
+"""
+    Video Locale
+    ------------
+
+    A website that generates YouTube playlists based on selected
+    geographical regions.
+
+    :copyright: (c) 2016 Team 95.
+    :license: MIT, see LICENSE for more details.
+"""
+
+import http_manager
 from youtube_request import *
 
 # here is an example of how to get videos

@@ -12,11 +12,12 @@
 """
 
 from flask import Flask, render_template, request, redirect, url_for
-from youtube_request import YoutubeRequest, Filters
-from youtube_result import  YoutubeResult
+from youtube_request import YouTubeRequest, Filters
+from youtube_result import  YouTubeResult
 from http_manager import search_youtube, get_from_youtube
 from os import environ, getenv
-import re
+from time import time
+from re import finditer
 import redis
 
 app = Flask(__name__)
@@ -25,20 +26,27 @@ offline_r = dict()
 test_without_redis = getenv("TEST_VIDEOLOCALE_OFFLINE", False)
 
 if not test_without_redis:
-    r = redis.StrictRedis(host='localhost', port=6379, db=0)
+    r = redis.StrictRedis(host="localhost", port=6379, db=0)
 
-@app.route('/', methods=["GET"])
+@app.route("/", methods=["GET"])
 def main_page():
-    return render_template('main.html', filters=Filters(), mapbox_api_key=environ['MAPBOX_API_KEY'])
+    """ A page that contains an interactive maps and toggleable filters to aid users in creating
+        a customized playlist of YouTube videos. """
+        
+    return render_template("main.html", filters=Filters(), mapbox_api_key=environ["MAPBOX_API_KEY"])
 
 
 @app.route("/generate", methods=["POST"])
 def generate_playlist():
+    """ A hidden page in which the YouTube requests are executed and the results are generated.
+        Once the resulting YouTube IDs are retrieved, they are placed in a database and then a 
+        redirect is issued to allow the user to see their results. """
+        
     # Generate page id for this new request
     id_is_used = True
     id = None
     while id_is_used:
-        id = uniqid()
+        id = unique_id()
         result = None
         if test_without_redis:
             try:
@@ -52,14 +60,14 @@ def generate_playlist():
 
     youtube_requests = list()
     if "coordinates" in request.form:
-        regions = re.finditer("\[\((?P<lat_lng>-?\d+.?\d*,-?\d+.?\d*)\),(?P<radius>\d+.?\d*m)\]", request.form["coordinates"])
+        regions = finditer("\[\((?P<lat_lng>-?\d+.?\d*,-?\d+.?\d*)\),(?P<radius>\d+.?\d*m)\]", request.form["coordinates"])
         for region in regions:
-            youtube_request = YoutubeRequest()
-            youtube_request.location = region.group('lat_lng')
-            youtube_request.location_radius = region.group('radius')
+            youtube_request = YouTubeRequest()
+            youtube_request.location = region.group("lat_lng")
+            youtube_request.location_radius = region.group("radius")
             youtube_requests.append(youtube_request)
     else:
-        youtube_requests.append(YoutubeRequest())
+        youtube_requests.append(YouTubeRequest())
 
     # construct the youtube request object(s) from the form parameters
     if "query" in request.form:
@@ -119,6 +127,8 @@ def generate_playlist():
 
 @app.route("/playlist/<id>", methods=["GET"])
 def playlist_page(id = None):
+    """ A page that shows playlist results to users. """
+    
     video_ids = None
     if test_without_redis:
         try:
@@ -132,10 +142,12 @@ def playlist_page(id = None):
     return render_template("playlist.html", videos=video_results, mapbox_api_key=environ["MAPBOX_API_KEY"])
 
 
-def uniqid():
-	from time import time
-	return hex(int(time()*10000000))[2:-2]
+def unique_id():
+    """ unique_id generates a unique identifier string for representing a generated playlist.
+        This generated string is used in the URL that points to a particular playlist. """
+    return hex(int(time()*10000000))[2:-2]
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     app.debug = True
     app.run()
