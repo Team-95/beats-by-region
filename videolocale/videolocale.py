@@ -152,6 +152,13 @@ def page_not_found(e):
     """ A page that displays a 404 error. The 404 template is automatically
         rendered whenever a 404 error occurs. """
     return render_template("404.html"), 404
+    
+
+@app.errorhandler(500)
+def internal_server_error(e):
+    """ A page that displays a 500 error. The 500 template is automatically
+        rendered whenever a 500 error occurs. """
+    return render_template("500.html"), 500
 
 
 def unique_id():
@@ -161,5 +168,8 @@ def unique_id():
 
 
 if __name__ == "__main__":
+    # Important note about app.debug:
+    # This controls whether or not we see the 500 internal server error page.
+    # If app.debug = True, a stacktrace is shown instead of a 500 page.
     app.debug = True
     app.run()

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+
+    <title>VideoLocale | 500</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}" type="image/x-icon">
+    <link rel="icon" href="{{ url_for('static', filename='img/favicon.ico') }}" type="image/x-icon">
+  </head>
+
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-default navbar-static-top" style = "margin-bottom:0;">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapsed" aria-expanded="false">
+            <span class="sr-only">Toggle Navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="{{ url_for('main_page') }}" style = "padding: 14px;">
+            <span><img alt="VideoLocale" src="{{ url_for('static', filename='img/vl_logo_small.png') }}" style="margin-top: -5px; margin-right: 12px;"></span>VideoLocale
+          </a>
+        </div>
+
+        <!-- Navbar links -->
+        <div class="collapse navbar-collapse" id="navbar-collapsed">
+          <ul class="nav navbar-nav">
+            <li><a href="{{ url_for('main_page') }}">Generate Playlist</a></li>
+            <li><a href="#">About</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    
+    <div class="center-block" style="height:75vh; width:75vw; text-align:center; top:50%; padding-top:10%;">
+        <h1>500: Internal server error!</h1>
+        <h3>Whoops! It seems that something went wrong on our end.</h3>
+        <h3>Please try again later!</h3>
+    </div>
+
+    <!-- JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+    <!-- Bootstrap -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+    integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+    crossorigin="anonymous"></script>
+    
+  </body>
+
+</html>
