@@ -28,6 +28,7 @@ test_without_redis = getenv("TEST_VIDEOLOCALE_OFFLINE", False)
 if not test_without_redis:
     r = redis.StrictRedis(host="localhost", port=6379, db=0)
 
+
 @app.route("/", methods=["GET"])
 def main_page():
     """ A page that contains an interactive maps and toggleable filters to aid users in creating
@@ -125,6 +126,7 @@ def generate_playlist():
     
     return redirect(url_for("playlist_page", id=id))
 
+
 @app.route("/playlist/<id>", methods=["GET"])
 def playlist_page(id = None):
     """ A page that shows playlist results to users. """
@@ -137,9 +139,19 @@ def playlist_page(id = None):
             video_ids = None
     else:
         video_ids = r.get(id)
+    
+    if video_ids is None:
+        return render_template("404.html"), 404
     video_results = get_from_youtube(video_ids)
     
     return render_template("playlist.html", videos=video_results, mapbox_api_key=environ["MAPBOX_API_KEY"])
+
+
+@app.errorhandler(404)
+def page_not_found(e):
+    """ A page that displays a 404 error. The 404 template is automatically
+        rendered whenever a 404 error occurs. """
+    return render_template("404.html"), 404
 
 
 def unique_id():
