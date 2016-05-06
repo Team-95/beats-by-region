@@ -61,7 +61,6 @@
 
           <div class="panel panel-default">
             <div class="panel-body playlist-body">
-
               <div class="panel panel-default" style="height: 60vh;" id="map-container">
                 <div class="well" id="playlistMap" style="height: 60vh;"></div>
               </div>
@@ -77,6 +76,12 @@
                 var maxLat = -90;
                 var minLon = 180;
                 var maxLon = -180;
+
+                customMarker = L.Marker.extend({
+                  options:{
+                    vidTitle:'titles'
+                  }
+                })
               </script>
 
               <!-- caps of all of the videos because video headers use the border of the header above themselves
@@ -87,6 +92,8 @@
               <script type="text/javascript">
                 var lat = {{video.latitude}};
                 var lon = {{video.longitude}};
+                var temp = '{{video.title}}';
+                var title = temp.replace(/[^a-z0-9\s]/gi, '').replace(/[_\s]/g, '-');
 
                 markerArray.forEach(function(markers){
                   var location = markers.getLatLng();
@@ -109,16 +116,34 @@
                 if (lon > maxLon){
                   maxLon = lon;
                 }
-                var marker = L.marker([lat,lon],{icon: L.mapbox.marker.icon({
+                var marker = new customMarker([lat,lon],{
+                  vidTitle: '{{video.id}}_header',
+                  icon: L.mapbox.marker.icon({
                   'marker-color': '#7BB14E'
                 })})
-                .bindPopup('{{video.title}}')//should we have this? im concerned about privacy.
-                .addTo(map);
+                .bindPopup('{{video.title}}');//should we have this? im concerned about privacy
+                marker.on('mouseover', function (e) {
+                  this.openPopup();
+                });
+                marker.on('mouseout', function (e) {
+                  this.closePopup();
+                });
+                marker.on('click',onClick);
+                marker.addTo(map);
+
+                function onClick(e) {
+                  $('html,body').animate({
+                    scrollTop: ($('#' + e.target.options.vidTitle).offset().top - 2)
+                  }, 2000);
+                  $('#' + e.target.options.vidTitle).trigger('click');
+                }
+
                 markerArray.push(marker);
 
               </script>
 
-              <div class = "panel-body playlist-video-header" > {{ video.title }}</div>
+              <div class = "panel-body playlist-video-header" id = "{{video.id}}_header"> {{ video.title }}</div>
+
               <div class = "panel-body playlist-video-outside">
                 <div class = " well playlist-video-inside">
                     <div class = "playlist-video-embedded">
