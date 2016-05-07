@@ -16,7 +16,9 @@ class YouTubeRequest:
     """ YouTubeRequest is a data class for making YouTube API calls. """
     
     def __init__(self):
-        """ Initializes all members as None. """
+        """ Initializes all members (except safe_search) as None.
+            safe_search is initialized to strict because otherwise
+            you get some 'interesting' results by default... """
         self.query = None
         self.location = None
         self.location_radius = None
@@ -25,7 +27,7 @@ class YouTubeRequest:
         self.result_order = None
         self.published_after = None
         self.published_before = None
-        self.safe_search = None
+        self.safe_search = "strict"
         self.captions = None
         self.category = None
         self.definition = None
