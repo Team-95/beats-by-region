@@ -37,11 +37,32 @@ def search_youtube(request):
 
 def get_from_youtube(video_ids):
     """ Retrieves more detailed metadata for the video ids provided. """
-      
-    videos_url = _get_videos_url(video_ids)
-    videos_response = requests.get(videos_url)
     
-    return _deserialize_video(videos_response.text)
+    deserialized_videos = list()
+    current_video_ids = ""
+    
+    items = video_ids.split(",")
+    
+    # The YouTube videos.list endpoint only allows 50 video ids at a time.
+    # If the number of items we have is over 50, we must break the request 
+    # up into several smaller requests. If we decide to truncate results to
+    # the value specified by the number of results filter we can get rid of
+    # this code.
+    if len(items) > 50:
+       for i in range(0, len(items) - 1):
+            current_video_ids += items[i] + ","
+            if i % 50 == 0 or i == len(items) - 1:
+                current_video_ids = current_video_ids[:-1]
+                videos_url = _get_videos_url(current_video_ids)
+                videos_response = requests.get(videos_url)
+                deserialized_videos.extend(_deserialize_video(videos_response.text))
+                current_video_ids = ""
+                
+       return deserialized_videos
+    else:
+       videos_url = _get_videos_url(video_ids)
+       videos_response = requests.get(videos_url)
+       return _deserialize_video(videos_response.text)
     
 
 def _get_search_url(request):

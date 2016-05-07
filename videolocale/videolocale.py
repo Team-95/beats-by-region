@@ -141,7 +141,8 @@ def playlist_page(id = None):
         video_ids = r.get(id)
     
     if video_ids is None:
-        return render_template("404.html"), 404
+        return render_template("404.html"), 404  
+        
     video_results = get_from_youtube(video_ids)
     
     return render_template("playlist.html", videos=video_results, mapbox_api_key=environ["MAPBOX_API_KEY"])
