@@ -173,4 +173,4 @@ if __name__ == "__main__":
     # This controls whether or not we see the 500 internal server error page.
     # If app.debug = True, a stacktrace is shown instead of a 500 page.
     app.debug = True
-    app.run()
+    app.run(host="0.0.0.0")
