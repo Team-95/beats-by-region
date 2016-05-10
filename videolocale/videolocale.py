@@ -26,7 +26,7 @@ offline_r = dict()
 test_without_redis = getenv("TEST_VIDEOLOCALE_OFFLINE", False)
 
 if not test_without_redis:
-    r = redis.StrictRedis(host="localhost", port=6379, db=0)
+    r = redis.StrictRedis(host="dokku-redis-videolocale-db", port=6379, db=0)
 
 
 @app.route("/", methods=["GET"])
