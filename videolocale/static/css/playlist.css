@@ -60,13 +60,13 @@
 .playlist-video-embedded{
   float: left;
   display:block;
-  height: 315px;
-  width: 420px;
+  height: 100%;
+  width: 40%;
 }
 
 .playlist-video-embedded-vid{
-  width:420px;
-  height:315px;
+  height: 100%;
+  width: 100%;
 }
 
 /*div for video text*/
@@ -74,7 +74,7 @@
   height: 100%;
   width: auto;
   min-width: 275px;
-  margin-left: 430px;
+  margin-left: 41%;
   display:flex;
   flex-direction: column;
   justify-content: space-between;
@@ -131,6 +131,8 @@ playlist should have a blank div with bottom border to "cap" all the videos*/
     margin: auto;
     float:none;
     margin-bottom: 10px;
+    height: 100%;
+    width: 100%;
   }
   .playlist-video-text{
     margin:auto;
