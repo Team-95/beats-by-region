@@ -130,10 +130,14 @@
 
                 //animation to scroll to header
                 function onClick(e) {
+                  var $header = $('#' + e.target.options.vidTitle);
+                  var $next = $header.next('.playlist-video-outside');
+                  if(!$next.hasClass('playlist-video-outside-open')){        
+                    $header.trigger('click');
+                  }
                   $('html,body').animate({
-                    scrollTop: ($('#' + e.target.options.vidTitle).offset().top - 2)
+                    scrollTop: ($header.offset().top - 2)
                   }, 2000);
-                  $('#' + e.target.options.vidTitle).trigger('click');
                 }
                 markerArray.push(marker);
               </script>
