@@ -66,6 +66,7 @@
               </div>
 
               <script type="text/javascript">
+              //creates map and initializes map bounds for marker view
                 L.mapbox.accessToken = '{{ mapbox_api_key }}';
                 var map = L.mapbox.map('playlistMap','',{worldCopyJump:true})
                     .setView([47.6097, -122.3331], 6);
@@ -77,6 +78,7 @@
                 var minLon = 180;
                 var maxLon = -180;
 
+                //custom marker for video data
                 customMarker = L.Marker.extend({
                   options:{
                     vidTitle:'titles'
@@ -84,26 +86,20 @@
                 })
               </script>
 
-              <!-- caps of all of the videos because video headers use the border of the header above themselves
-              <div class = "playlist-video-header-top"></div>
-              <div style = "border-bottom-style: solid; border-color: hsl(210, 45%, 0%);"></div>-->
-
               {% for video in videos %}
               <script type="text/javascript">
+                // find min and max coordinates for zooming
                 var lat = {{video.latitude}};
                 var lon = {{video.longitude}};
-                var temp = '{{video.title}}';
-                var title = temp.replace(/[^a-z0-9\s]/gi, '').replace(/[_\s]/g, '-');
-
                 markerArray.forEach(function(markers){
                   var location = markers.getLatLng();
                   var oldLat = location.lat;
                   var oldLon = location.lng;
+                  //offset for videos at the same location
                   if ((lat == oldLat) && (lon == oldLon)){
                     lat = lat - 0.0001;
                   }
                 });
-
                 if (lat < minLat){
                   minLat = lat;
                 }
@@ -121,7 +117,8 @@
                   icon: L.mapbox.marker.icon({
                   'marker-color': '#7BB14E'
                 })})
-                .bindPopup('{{video.title}}');//should we have this? im concerned about privacy
+                //title popup on mouse hover
+                .bindPopup('{{video.title}}');
                 marker.on('mouseover', function (e) {
                   this.openPopup();
                 });
@@ -131,15 +128,14 @@
                 marker.on('click',onClick);
                 marker.addTo(map);
 
+                //animation to scroll to header
                 function onClick(e) {
                   $('html,body').animate({
                     scrollTop: ($('#' + e.target.options.vidTitle).offset().top - 2)
                   }, 2000);
                   $('#' + e.target.options.vidTitle).trigger('click');
                 }
-
                 markerArray.push(marker);
-
               </script>
 
               <div class = "panel-body playlist-video-header" id = "{{video.id}}_header"> {{ video.title }}</div>

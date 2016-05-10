@@ -35,7 +35,6 @@ $(document).ready(function() {
     $(this).blur();
   });
 
-
   // Remove filter that the clicked remove button is associated with,
   // and re-enable the dropdown menu item for that filter.
   $('.remove-filter').click(function() {
@@ -53,6 +52,7 @@ $(document).ready(function() {
 
   // Disable the dropdown menu item for the selected filter, and toggle
   // the visibility of the filter div to show the filter.
+  // gives focus to search if selected
   $('.filter-menu-item').click(function() {
     $(this).prop('disabled', true);
     $(this).addClass('disabled');

@@ -1,6 +1,5 @@
 /*playlist heading (name, ~#videos, ~runtime)*/
 #playlist-column{
-  min-width: 450px;
 }
 
 .playlist-header{
@@ -168,6 +167,13 @@ playlist should have a blank div with bottom border to "cap" all the videos*/
   }
   .playlist-video-text{
     marigin:0px;
+  }
+}
+
+/*media query for devices with different pixel density*/
+@media screen and (-webkit-min-device-pixel-ratio : 2){
+  #playlist-column{
+    width:100vw;
   }
 }
 /* hsl(210, 29%, 34%) light bg*/
