@@ -36,6 +36,15 @@ body{
   overflow: auto;
   overflow-x: hidden;
 }
+/* remove cursor from dtpickers input */
+.upload-date-picker.form-control{
+  cursor:default;
+      color : transparent;
+      text-shadow : 0 0 0 #000;
+  &:focus{
+    outline:none;
+  }
+}
 
 /* Fit datetimepickers within filter wrapper to avoid clipping. */
 .bootstrap-datetimepicker-widget {

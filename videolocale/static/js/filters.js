@@ -27,6 +27,15 @@ $(document).ready(function() {
     assessGenerateButton();
   });
 
+  //doesnt allow keypresses in input for datetimepickers
+  $('.upload-date-picker.form-control').keydown(function() {
+  return false;
+  });
+  $('.upload-date-picker.form-control').click(function(){
+    $(this).blur();
+  });
+
+
   // Remove filter that the clicked remove button is associated with,
   // and re-enable the dropdown menu item for that filter.
   $('.remove-filter').click(function() {
@@ -53,6 +62,7 @@ $(document).ready(function() {
     $(controlId).toggle();
     $(controlId).find('input').prop('disabled', false);
     $(controlId).find('select').prop('disabled', false);
+    $(controlId).find('#search-query').focus();
 
     assessGenerateButton();
   });
