@@ -12,6 +12,11 @@ $(document).ready(function() {
   // https://youtube.com/watch?v=jNQXAC9IVRw
   $('#datetimepicker-beginning').data('DateTimePicker').minDate(new Date('April 23, 2005'));
 
+  // Set the maximum datetime of the beginning time picker to the current datetime.
+  // Without this, it was possible to set the beginning to a future date
+  // and the ending to a date earlier than the beginning
+  $('#datetimepicker-beginning').data('DateTimePicker').maxDate(new Date());
+
   // Set maximum datetime of ending time picker to the current datetime.
   $('#datetimepicker-end').data('DateTimePicker').maxDate(new Date());
 

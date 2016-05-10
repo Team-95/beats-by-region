@@ -181,7 +181,7 @@ def _deserialize_video(json_text):
         result.thumbnail_url = thumbnails["default"]["url"]
         result.view_count = statistics["viewCount"]
 
-        if location != None:
+        if location != None and "latitude" in location and "longitude" in location:
             result.latitude = location["latitude"]
             result.longitude = location["longitude"]
 

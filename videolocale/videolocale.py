@@ -19,6 +19,7 @@ from os import environ, getenv
 from time import time
 from re import finditer
 import redis
+from datetime import datetime
 
 app = Flask(__name__)
 r = None
@@ -110,6 +111,22 @@ def generate_playlist():
     if "duration" in request.form:
         for youtube_request in youtube_requests:
             youtube_request.duration = request.form["duration"]
+
+    if "start-date" in request.form:
+        for youtube_request in youtube_requests:
+            try:
+                date = datetime.strptime(request.form["start-date"], "%m/%d/%Y %I:%M %p")
+                youtube_request.published_after = date.isoformat("T") + "Z"
+            except:
+                pass
+
+    if "end-date" in request.form:
+        for youtube_request in youtube_requests:
+            try:
+                date = datetime.strptime(request.form["end-date"], "%m/%d/%Y %I:%M %p")
+                youtube_request.published_before = date.isoformat("T") + "Z"
+            except:
+                pass
 
     video_ids = list()
     for youtube_request in youtube_requests:
