@@ -172,5 +172,9 @@ if __name__ == "__main__":
     # Important note about app.debug:
     # This controls whether or not we see the 500 internal server error page.
     # If app.debug = True, a stacktrace is shown instead of a 500 page.
-    app.debug = True
+    running_on_dokku = getenv("DOKKU", False)
+    if not running_on_dokku:
+        app.debug = True
+    else:
+        app.debug = False
     app.run(host="0.0.0.0")
