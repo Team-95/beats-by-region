@@ -26,7 +26,7 @@ $(document).ready(function() {
     var video = $next.find('iframe');
     if (($next).hasClass('playlist-video-outside-open')){
       var link = $(video).attr('id');
-      $(video).attr('src','http://www.youtube.com/embed/'+link);
+      $(video).attr('src','https://www.youtube.com/embed/'+link);
     }
   });
 });
