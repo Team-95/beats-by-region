@@ -25,11 +25,9 @@ $(document).ready(function() {
   // date ranges can be selected.
   $('#datetimepicker-beginning').on('dp.change', function(e) {
     $('#datetimepicker-end').data('DateTimePicker').minDate(e.date);
-    assessGenerateButton();
   });
   $('#datetimepicker-end').on('dp.change', function(e) {
     $('#datetimepicker-beginning').data('DateTimePicker').maxDate(e.date);
-    assessGenerateButton();
   });
 
   //doesnt allow keypresses in input for datetimepickers
@@ -51,8 +49,6 @@ $(document).ready(function() {
     $(dropdownId).removeClass('disabled');
     $(dropdownId).removeClass('not-active');
     $(dropdownId).prop('disabled', false);
-
-    assessGenerateButton();
   });
 
   // Disable the dropdown menu item for the selected filter, and toggle
@@ -68,13 +64,11 @@ $(document).ready(function() {
     $(controlId).find('input').prop('disabled', false);
     $(controlId).find('select').prop('disabled', false);
     $(controlId).find('#search-query').focus();
-
-    assessGenerateButton();
   });
 
   // Disable generate button until text is entered into search box (if enabled).
   $('#search-query').on('keyup', function() {
-    assessGenerateButton();
+
   });
 
   // assessGenerateButton validates all input fields to ensure that valid data
