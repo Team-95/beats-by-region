@@ -43,22 +43,6 @@ def generate_playlist():
     """ A hidden page in which the YouTube requests are executed and the results are generated.
         Once the resulting YouTube IDs are retrieved, they are placed in a database and then a 
         redirect is issued to allow the user to see their results. """
-        
-    # Generate page id for this new request
-    id_is_used = True
-    id = None
-    while id_is_used:
-        id = unique_id()
-        result = None
-        if test_without_redis:
-            try:
-                result = offline_r[id]
-            except KeyError:
-                result = None
-        else:
-            result = r.get(id)
-        if result is None:
-            id_is_used = False
 
     youtube_requests = list()
     if "coordinates" in request.form:
@@ -131,6 +115,25 @@ def generate_playlist():
     video_ids = list()
     for youtube_request in youtube_requests:
         video_ids.extend(search_youtube(youtube_request))
+    
+    if len(video_ids) == 0:
+        return render_template("noresults.html")
+    
+    # Generate page id for this new request
+    id_is_used = True
+    id = None
+    while id_is_used:
+        id = unique_id()
+        result = None
+        if test_without_redis:
+            try:
+                result = offline_r[id]
+            except KeyError:
+                result = None
+        else:
+            result = r.get(id)
+        if result is None:
+            id_is_used = False
         
     video_ids_string = ""
     for id in video_ids:
