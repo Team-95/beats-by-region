@@ -99,6 +99,13 @@ body{
   margin: 0px;
 }
 
+/* Adds a small extra margin to the bottom of the number of
+   results control so that the tooltip does not overlap with
+   the filter below it. */
+#num-results-control {
+  margin-bottom: 40px;
+}
+
 /*moves options below map when viewport shrinks*/
 @media all and (max-width: 1009px),(-webkit-min-device-pixel-ratio : 2){
   #rows-to-columns{
