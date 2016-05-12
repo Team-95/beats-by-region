@@ -41,4 +41,8 @@ $(document).ready(function() {
     
     tour.init();
     tour.start();
+    
+    $('#restart-tour').click(function() {
+       tour.restart(); 
+    });
 });
