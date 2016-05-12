@@ -18,6 +18,9 @@
 
     <!-- bootstrap-datetimepicker CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-datetimepicker.min.css') }}">
+    
+    <!-- bootstrap-tour CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-tour.min.css') }}">
 
     <!-- Favicon -->
     <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}" type="image/x-icon">
@@ -61,7 +64,7 @@
         <div class="panel panel-default" id="options-container">
           <form action="generate" method="POST" class="panel-body" id = "options-form">
                 <div class="btn-group btn-block">
-                  <button type="button" class="btn btn-primary btn-sm btn-block dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Add a Filter!&nbsp;&nbsp;
+                  <button type="button" id="add-filter-button" class="btn btn-primary btn-sm btn-block dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Add a Filter!&nbsp;&nbsp;
                     <span class="caret"></span>
                   </button>
                   <ul class="dropdown-menu" style="width: 100%;">
@@ -198,9 +201,15 @@
 
     <!-- bootstrap-datetimepicker -->
     <script src="{{ url_for('static', filename='js/bootstrap-datetimepicker.min.js') }}"></script>
+    
+    <!-- bootstrap-tour -->
+    <script src="{{ url_for('static', filename='js/bootstrap-tour.min.js') }}"></script>
 
     <!-- Filters -->
     <script src="{{ url_for('static', filename='js/filters.js') }}"></script>
+    
+    <!-- tour.js -->
+    <script src="{{ url_for('static', filename='js/tour.js') }}"></script>
 
     {% include 'map.html' %}
   </body>
