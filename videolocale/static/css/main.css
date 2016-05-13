@@ -107,7 +107,7 @@ body{
 }
 
 /*moves options below map when viewport shrinks*/
-@media all and (max-width: 1009px),(-webkit-min-device-pixel-ratio : 2){
+@media all and (max-width: 1009px){
   #rows-to-columns{
     position: static;
     display: flex;
