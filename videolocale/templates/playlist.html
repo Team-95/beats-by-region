@@ -132,12 +132,14 @@
                 function onClick(e) {
                   var $header = $('#' + e.target.options.vidTitle);
                   var $next = $header.next('.playlist-video-outside');
-                  if(!$next.hasClass('playlist-video-outside-open')){        
+                  if(!$next.hasClass('playlist-video-outside-open')){
                     $header.trigger('click');
                   }
+                  var offset = $header.offset().top -2;
+                  console.log(offset);
                   $('html,body').animate({
-                    scrollTop: ($header.offset().top - 2)
-                  }, 2000);
+                    scrollTop: (offset)
+                  }, offset+500);
                 }
                 markerArray.push(marker);
               </script>
