@@ -177,7 +177,10 @@ def _deserialize_video(json_text):
         result.id = item["id"]
         result.title = snippet["title"]
         result.channel_title = snippet["channelTitle"]
-        result.description= snippet["description"]
+        if len(snippet["description"]) == 0:
+            result.description = "No description provided."
+        else:
+            result.description = snippet["description"]
         result.thumbnail_url = thumbnails["default"]["url"]
         result.view_count = statistics["viewCount"]
 
