@@ -119,6 +119,9 @@
                 var radius = layer.getRadius();
                 var regionString = '[(' + latlng.lat + ',' + latlng.lng + '),' + radius + 'm]';
                 $('#coordinates').val($('#coordinates').val().replace(regionString, ''));
+                if ($('#coordinates').val().length === 0) {
+                    $('#coordinates').prop('disabled', true);
+                }
             });
         });
     });
