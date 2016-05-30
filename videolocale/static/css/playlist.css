@@ -171,7 +171,7 @@ playlist should have a blank div with bottom border to "cap" all the videos*/
 }
 
 /*media query for devices with different pixel density*/
-@media screen and (-webkit-min-device-pixel-ratio : 2){
+@media screen and (-webkit-min-device-pixel-ratio : 1.5) and (max-width: 1024px){
   #playlist-column{
     width:100vw;
   }
