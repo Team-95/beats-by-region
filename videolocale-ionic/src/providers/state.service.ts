@@ -64,7 +64,7 @@ export class StateService {
 
         var baseSearchUrl = 'https://www.googleapis.com/youtube/v3/search?';
         var baseVideosUrl = 'https://www.googleapis.com/youtube/v3/videos?';
-        var apiKey = 'AIzaSyDnn9pnuziREZ-gm5UW3ttMNqheWVLOGAo';
+        var apiKey = '';
 
         var url = baseSearchUrl + 'key=' + apiKey + '&part=snippet&type=video&videoEmbeddable=true';
 
