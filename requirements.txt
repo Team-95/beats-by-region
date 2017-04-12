@@ -1,4 +1,0 @@
-flask
-isodate
-redis
-requests

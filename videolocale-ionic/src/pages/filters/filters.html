@@ -1,0 +1,94 @@
+<ion-header id="header">
+    <ion-navbar>
+        <ion-title id="title">
+            VideoLocale
+        </ion-title>
+        <ion-buttons end>
+            <button ion-button round color="light" (click)="searchClicked()">
+                Search
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-list>
+        <ion-item>
+            <ion-label>Search Query</ion-label>
+            <ion-input [(ngModel)]="stateService.searchQuery" type="text"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label>Result Order</ion-label>
+            <ion-select [(ngModel)]="stateService.resultOrder">
+                <ion-option [value]="''">Unselected</ion-option>
+                <ion-option *ngFor="let type of stateService.resultOrderOptions; let i = index" [value]="type">{{stateService.resultOrderTitles[i]}}</ion-option>
+            </ion-select>
+        </ion-item>
+        <ion-item>
+            <ion-label>Video Type</ion-label>
+            <ion-select [(ngModel)]="stateService.videoType">
+                <ion-option [value]="''">Unselected</ion-option>
+                <ion-option *ngFor="let type of stateService.videoTypeOptions; let i = index" [value] = "type">{{stateService.videoTypeTitles[i]}}</ion-option>
+            </ion-select>
+        </ion-item>
+        <ion-item>
+            <ion-label>Safe Search</ion-label>
+            <ion-select [(ngModel)]="stateService.safeSearch">
+                <ion-option [value]="''">Unselected</ion-option>
+                <ion-option *ngFor="let type of stateService.safeSearchOptions; let i = index" [value]="type">{{stateService.safeSearchTitles[i]}}</ion-option>
+            </ion-select>
+        </ion-item>
+        <ion-item>
+            <ion-label>Captions</ion-label>
+            <ion-select [(ngModel)]="stateService.captions">
+                <ion-option [value]="''">Unselected</ion-option>
+                <ion-option *ngFor="let type of stateService.captionOptions; let i = index" [value]="type">{{stateService.captionTitles[i]}}</ion-option>
+            </ion-select>
+        </ion-item>
+        <ion-item>
+            <ion-label>Category</ion-label>
+            <ion-select [(ngModel)]="stateService.category">
+                <ion-option [value]="''">Unselected</ion-option>
+                <ion-option *ngFor="let type of stateService.categoryOptions; let i = index" [value]="type">{{stateService.categoryTitles[i]}}</ion-option>
+            </ion-select>
+        </ion-item>
+        <ion-item>
+            <ion-label>Definition</ion-label>
+            <ion-select [(ngModel)]="stateService.definition">
+                <ion-option [value]="''">Unselected</ion-option>
+                <ion-option *ngFor="let type of stateService.definitionOptions; let i = index" [value]="type">{{stateService.definitionTitles[i]}}</ion-option>
+            </ion-select>
+        </ion-item>
+        <ion-item>
+            <ion-label>Dimension</ion-label>
+            <ion-select [(ngModel)]="stateService.dimension">
+                <ion-option [value]="''">Unselected</ion-option>
+                <ion-option *ngFor="let type of stateService.dimensionOptions; let i = index" [value]="type">{{stateService.dimensionTitles[i]}}</ion-option>
+            </ion-select>
+        </ion-item>
+        <ion-item>
+            <ion-label>Duration</ion-label>
+            <ion-select [(ngModel)]="stateService.duration">
+                <ion-option [value]="''">Unselected</ion-option>
+                <ion-option *ngFor="let type of stateService.durationOptions; let i = index" [value]="type">{{stateService.durationTitles[i]}}</ion-option>
+            </ion-select>
+        </ion-item>
+        <ion-item>
+            <ion-label>Start Date</ion-label>
+            <ion-datetime displayFormat="MMM DD, YYYY HH:mm" [(ngModel)]="startDate"></ion-datetime>
+        </ion-item>
+        <ion-item>
+            <ion-label>End Date</ion-label>
+            <ion-datetime displayFormat="MMM DD, YYYY HH:mm" [(ngModel)]="endDate"></ion-datetime>
+        </ion-item>
+        <ion-item>
+            <ion-label>Results Amount</ion-label>
+            <ion-range min="1" max="50" [(ngModel)]="stateService.resultsAmount">
+                <ion-label range-left>1</ion-label>
+                <ion-label range-right>50</ion-label>
+            </ion-range>
+        </ion-item>
+
+    </ion-list>
+
+</ion-content>
