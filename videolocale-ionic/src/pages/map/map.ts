@@ -207,10 +207,6 @@ export class MapPage {
             instance.map.setView([position.coords.latitude, position.coords.longitude], 11, { animation: true });
         });
 
-        setTimeout(function () {
-            var header = $('#header');
-            header.trigger('click');
-        }, 1000);
     }
 
     onLink(url: string) {

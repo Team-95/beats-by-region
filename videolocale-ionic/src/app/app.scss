@@ -30,3 +30,59 @@
 .leaflet-draw-actions a{
     background-color:white !important;
 }
+
+.leaflet-container.dark .map-tooltip .close, .leaflet-control-attribution:after, .leaflet-control-layers-toggle,
+.leaflet-control-zoom-in, .leaflet-control-zoom-out, .leaflet-popup-close-button, .map-tooltip .close, .mapbox-icon {
+    background-size: 39px 390px !important;
+}
+
+.leaflet-bar a, .leaflet-control-layers-toggle, .leaflet-popup-close-button, .map-tooltip.closable .close, .mapbox-button-icon:before, .mapbox-icon{
+    width: 39px !important;
+    height: 39px !important;
+}
+
+.leaflet-bar .leaflet-control-zoom-out {
+    background-position: 0 -39px !important;
+}
+
+.leaflet-touch .leaflet-draw-toolbar .leaflet-draw-draw-circle {
+    background-position: -138px -3px !important;
+}
+
+.leaflet-retina .leaflet-draw-toolbar a {
+    background-size: 405px 45px !important;
+}
+
+.leaflet-touch .leaflet-draw-toolbar .leaflet-draw-edit-edit.leaflet-disabled {
+    background-position: -319px -3px !important;
+}
+
+.leaflet-touch .leaflet-draw-toolbar .leaflet-draw-edit-remove.leaflet-disabled {
+    background-position: -364px -3px !important;
+}
+
+.leaflet-control-attribution.leaflet-compact-attribution:after {
+    background-position: -6px -123px !important;
+}
+
+.leaflet-touch .leaflet-draw-toolbar .leaflet-draw-edit-edit {
+    background-position: -228px -3px !important;
+}
+
+.leaflet-touch .leaflet-draw-toolbar .leaflet-draw-edit-remove {
+    background-position: -273px -3px !important;
+}
+
+.leaflet-touch .leaflet-draw-actions {
+    left: 48px !important;
+}
+
+.leaflet-draw-actions-top.leaflet-draw-actions-bottom a {
+    height: 39px !important;
+    line-height: 39px !important;
+}
+
+.leaflet-touch .leaflet-draw-actions a {
+    line-height: 39px !important;
+    height: 39px !important;
+}
