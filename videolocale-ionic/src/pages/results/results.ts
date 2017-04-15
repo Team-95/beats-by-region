@@ -12,6 +12,10 @@ export class ResultsPage {
 
     }
 
+    showMore(): void {
+        this.stateService.showMore();
+    };
+
     searchClicked(): void {
         this.navCtrl.parent.select(2);
         this.stateService.search();

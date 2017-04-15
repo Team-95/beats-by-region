@@ -13,12 +13,70 @@ declare var $: any;
 })
 export class MapPage {
 
-    constructor(public navCtrl: NavController, private _stateService : StateService) {
-        
+    map: any;
+    markers: any [] = [];
+
+    constructor(public navCtrl: NavController, private _stateService: StateService) {
+
+        var instance = this;
+
+        this._stateService.loadingEvent.subscribe(function (results) {
+
+            var minLat = 90;
+            var maxLat = -90;
+            var minLon = 180;
+            var maxLon = -180;
+
+            instance.markers.forEach(function (mk) {
+                instance.map.removeLayer(mk);
+            });
+
+            results.forEach(function (result) {
+                if (result.latitude != null && result.longitude != null) {
+                    var tempLat = result.latitude;
+                    var tempLong = result.longitude;
+
+                    instance.markers.forEach(function (mark) {
+                        var oldLoc = mark.getLatLng();
+                        if (oldLoc.lat == tempLat && oldLoc.lng == tempLong){
+                            tempLat = tempLat + 0.0001;
+                        }
+                    });
+
+                    if (tempLat < minLat) {
+                        minLat = tempLat;
+                    }
+                    if (tempLat > maxLat) {
+                        maxLat = tempLat;
+                    }
+                    if (tempLong < minLon) {
+                        minLon = tempLong;
+                    }
+                    if (tempLong > maxLon) {
+                        maxLon = tempLong;
+                    }
+
+                    var marker = L.marker([tempLat, tempLong], {
+                        videoId: result.id,
+                        icon: L.mapbox.marker.icon({
+                            'marker-color': '#7BB14E'
+                        })
+                    });
+                    marker.on('click', function (e) {
+                        window.open('https://youtube.com/watch?v=' + e.target.options.videoId);
+                    });
+                    marker.addTo(instance.map);
+                    instance.markers.push(marker);
+                }
+            });
+
+            var buff = (maxLat - minLat) / 100;
+            instance.map.fitBounds([[minLat, minLon], [maxLat + buff, maxLon]]);
+        });
     };
 
     searchClicked(): void {
-        this.navCtrl.parent.select(2);
+        //this.navCtrl.parent.select(2);
         this._stateService.search();
     };
 
@@ -28,16 +86,13 @@ export class MapPage {
         // Maximum radius for searching, as stated in the YouTube API (1000 km):
         // https://developers.google.com/youtube/v3/docs/search/list#location
         var MAXIMUM_RADIUS_METERS = 1000000;
-
-        // Maximum number of regions. A maximum must be set as each region
-        // requires its own YouTube API call.
         var MAXIMUM_NUM_REGIONS = 5;
 
         L.mapbox.accessToken = 'pk.eyJ1IjoidGVhbTk1IiwiYSI6ImNpbmhyeGo2ZjB3and1MmtqMnF1MGNzZDkifQ.a4TonppNKAMvi13iEUnp3A';
-        var map = L.mapbox.map('map', '', { worldCopyJump: true })
-            .setView([47.6097, -122.3331], 6);
-        L.mapbox.styleLayer('mapbox://styles/team95/cinl2xhb6000ab1lzaofjjfqz').addTo(map);
-        var featureGroup = L.featureGroup().addTo(map);
+        this.map = L.mapbox.map('map', '', { worldCopyJump: true })
+            .setView([35, -105], 2);
+        L.mapbox.styleLayer('mapbox://styles/team95/cinl2xhb6000ab1lzaofjjfqz').addTo(this.map);
+        var featureGroup = L.featureGroup().addTo(this.map);
 
          //Set titles and tooltips for map controls
         L.drawLocal.draw.toolbar.buttons.circle = 'Select a region.';
@@ -74,7 +129,7 @@ export class MapPage {
                     }
                 }
             }
-        }).addTo(map);
+        }).addTo(this.map);
 
         var drawControlCircleDisabled = new L.Control.Draw({
             draw: {
@@ -89,7 +144,7 @@ export class MapPage {
             }
         });
 
-        map.on('draw:created', function (e) {
+        this.map.on('draw:created', function (e) {
             if (e.layer.getRadius() > MAXIMUM_RADIUS_METERS) {
                 e.layer.setRadius(MAXIMUM_RADIUS_METERS);
                 e.layer.bindPopup('Your region has been resized as the maximum radius is 1000 km.');
@@ -104,14 +159,14 @@ export class MapPage {
             instance._stateService.addRegion(region);
 
             if (featureGroup.getLayers().length === MAXIMUM_NUM_REGIONS) {
-                drawControlCircleEnabled.removeFrom(map);
-                drawControlCircleDisabled.addTo(map);
+                drawControlCircleEnabled.removeFrom(this.map);
+                drawControlCircleDisabled.addTo(this.map);
                 featureGroup.bindPopup('The maximum number of regions is ' + MAXIMUM_NUM_REGIONS + '. Delete a region to re-enable the drawing tool.');
                 featureGroup.openPopup();
             }
         });
 
-        map.on('draw:edited', function (e) {
+        this.map.on('draw:edited', function (e) {
             // Reset the coordinates input and repopulate it.
             instance._stateService.clearRegions();
 
@@ -130,10 +185,10 @@ export class MapPage {
             });
         });
 
-        map.on('draw:deleted', function (e) {
+        this.map.on('draw:deleted', function (e) {
             try {
-                drawControlCircleDisabled.removeFrom(map);
-                drawControlCircleEnabled.addTo(map);
+                drawControlCircleDisabled.removeFrom(this.map);
+                drawControlCircleEnabled.addTo(this.map);
             } catch (err) {
                 // Draw control is already enabled, ignore the thrown exception.
             }
@@ -147,6 +202,15 @@ export class MapPage {
                 instance._stateService.removeRegion(region);
             });
         });
+
+        navigator.geolocation.getCurrentPosition(function (position) {
+            instance.map.setView([position.coords.latitude, position.coords.longitude], 11, { animation: true });
+        });
+
+        setTimeout(function () {
+            var header = $('#header');
+            header.trigger('click');
+        }, 1000);
     }
 
     onLink(url: string) {

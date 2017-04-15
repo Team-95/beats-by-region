@@ -75,20 +75,12 @@
         </ion-item>
         <ion-item>
             <ion-label>Start Date</ion-label>
-            <ion-datetime displayFormat="MMM DD, YYYY HH:mm" [(ngModel)]="startDate"></ion-datetime>
+            <ion-datetime displayFormat="MMM DD, YYYY HH:mm" [(ngModel)]="stateService.startDate"></ion-datetime>
         </ion-item>
         <ion-item>
             <ion-label>End Date</ion-label>
-            <ion-datetime displayFormat="MMM DD, YYYY HH:mm" [(ngModel)]="endDate"></ion-datetime>
+            <ion-datetime displayFormat="MMM DD, YYYY HH:mm" [(ngModel)]="stateService.endDate"></ion-datetime>
         </ion-item>
-        <ion-item>
-            <ion-label>Results Amount</ion-label>
-            <ion-range min="1" max="50" [(ngModel)]="stateService.resultsAmount">
-                <ion-label range-left>1</ion-label>
-                <ion-label range-right>50</ion-label>
-            </ion-range>
-        </ion-item>
-
     </ion-list>
 
 </ion-content>

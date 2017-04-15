@@ -14,7 +14,7 @@
 <div class="loading-overlay"></div>
 
 <ion-content>
-    <ion-card *ngIf="stateService.results.length < 1" style="margin-top:50px;">
+    <ion-card *ngIf="stateService.results.length < 1 && stateService.loading == false" style="margin-top:50px;">
         <ion-card-header style="text-align:center;">
             No results. Get Searching!
         </ion-card-header>
@@ -27,5 +27,8 @@
         <a ion-item *ngFor="let video of stateService.results" href="https://youtube.com/watch?v={{video.id}}">
             <ion-label>{{video.title}}</ion-label>
         </a>
+        <button ion-item *ngIf="stateService.nextPageToken != ''" (click)="showMore()">
+            <ion-label>Show more...</ion-label>
+        </button>
     </ion-list>
 </ion-content>

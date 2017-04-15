@@ -6,6 +6,8 @@
     description: string;
     publishedAt: string;
     title: string;
+    latitude: number;
+    longitude: number;
 
     constructor() {
 

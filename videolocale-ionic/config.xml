@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<widget id="io.cordova.myapp55c54c" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:vs="http://schemas.microsoft.com/appx/2014/htmlapps" xmlns:cdv="http://cordova.apache.org/ns/1.0" defaultlocale="en-US">
+<widget id="io.cordova.myapp55c54c" version="1.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:vs="http://schemas.microsoft.com/appx/2014/htmlapps" xmlns:cdv="http://cordova.apache.org/ns/1.0" defaultlocale="en-US">
   <name>VideoLocale</name>
-  <description>An Ionic Framework and Cordova project for Visual Studio</description>
-  <author email="vscordovatools@microsoft.com" href="http://taco.visualstudio.com">Visual Studio JS Mobile Tooling</author>
+  <description>VideoLocale - Discover the world of Youtube</description>
+  <author email="vscordovatools@microsoft.com" href="http://taco.visualstudio.com">Brendan Murphy</author>
   <vs:toolsetVersion>6.3.1</vs:toolsetVersion>
   <vs:template-name>Ionic 2 Tabs</vs:template-name>
   <content src="index.html" />
@@ -96,4 +96,5 @@
   <plugin name="cordova-plugin-device" spec="1.1.4" />
   <plugin name="cordova-plugin-splashscreen" spec="~4.0.1" />
   <plugin name="com.bunkerpalace.cordova.YoutubeVideoPlayer" spec="~1.0.1" />
+  <preference name="Orientation" value="portrait" />
 </widget>
