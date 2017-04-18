@@ -28,12 +28,15 @@ export class StateService {
     startDate: string = '';
     endDate: string = '';
 
+    requestUrls: string[] = [];
     results: Video[] = [];
 
-    nextPageToken: string = '';
+    nextPageTokens: string[] = [];
 
     loadingEvent: Subject<Video[]> = new Subject();
     loading: boolean = false;
+
+    resultsPerRegion: number = 25;
 
     baseSearchUrl: string = 'https://www.googleapis.com/youtube/v3/search?';
     baseVideosUrl: string = 'https://www.googleapis.com/youtube/v3/videos?';
@@ -67,76 +70,90 @@ export class StateService {
         loader.present();
         this.loading = true;
 
+        this.requestUrls = [];
+        this.nextPageTokens = [];
+        this.results = [];
         var instance = this;
-        var url = this.baseSearchUrl + 'key=' + this.apiKey + '&part=snippet&type=video&videoEmbeddable=true';
 
-        url += '&maxResults=' + 50;
-        if (this.searchQuery != '') { url += '&q=' + this.searchQuery; }
-        if (this.resultOrder != '') { url += '&order=' + this.resultOrder; }
-        if (this.safeSearch != '') { url += '&safeSearch=' + this.safeSearch; }
-        if (this.captions != '') { url += '&videoCaption=' + this.captions; }
-        if (this.definition != '') { url += '&videoDefinition=' + this.definition; }
-        if (this.dimension != '') { url += '&videoDimension=' + this.dimension; }
-        if (this.duration != '') { url += '&videoDuration=' + this.duration; }
-        if (this.category != '') { url += '&videoCategoryId=' + this.category; }
-        if (this.videoType != '') { url += '&eventType=' + this.videoType; }
-        if (this.startDate != '') { url += '&publishedAfter=' + this.startDate; }
-        if (this.endDate != '') { url += '&publishedBefore=' + this.endDate; }
+        var baseUrl = this.baseSearchUrl + 'key=' + this.apiKey + '&part=snippet&type=video&videoEmbeddable=true';
+        baseUrl += '&maxResults=' + this.resultsPerRegion;
+        if (this.searchQuery != '') { baseUrl += '&q=' + this.searchQuery; }
+        if (this.resultOrder != '') { baseUrl += '&order=' + this.resultOrder; }
+        if (this.safeSearch != '') { baseUrl += '&safeSearch=' + this.safeSearch; }
+        if (this.captions != '') { baseUrl += '&videoCaption=' + this.captions; }
+        if (this.definition != '') { baseUrl += '&videoDefinition=' + this.definition; }
+        if (this.dimension != '') { baseUrl += '&videoDimension=' + this.dimension; }
+        if (this.duration != '') { baseUrl += '&videoDuration=' + this.duration; }
+        if (this.category != '') { baseUrl += '&videoCategoryId=' + this.category; }
+        if (this.videoType != '') { baseUrl += '&eventType=' + this.videoType; }
+        if (this.startDate != '') { baseUrl += '&publishedAfter=' + this.startDate; }
+        if (this.endDate != '') { baseUrl += '&publishedBefore=' + this.endDate; }
+
 
         if (this.regions.length > 0) {
-            url += '&location=' + this.regions[0].latitude + ',' + this.regions[0].longitude + '';
-            url += '&locationRadius=' + (this.regions[0].radius * 0.75) + 'm';
+            this.regions.forEach(function (region) {
+                var url = baseUrl + '&location=' + region.latitude + ',' + region.longitude + '';
+                url += '&locationRadius=' + (region.radius * 0.75) + 'm';
+                instance.requestUrls.push(url);
+            });
+        }
+        else {
+            this.requestUrls.push(baseUrl);
         }
 
+        var returnCount = 0;
         var start = new Date().getTime();
 
-        this.http.get(url).map(result => result.json()).subscribe(data => {
-            this.results = [];
-            this.nextPageToken = '';
-            if (data.nextPageToken) {
-                this.nextPageToken = data.nextPageToken;
-            }
+        this.requestUrls.forEach(function (requestUrl) {
+            instance.http.get(requestUrl).map(result => result.json()).subscribe(data => {
 
-            var ids = '';
-            data.items.forEach(function (item) {
-                ids += item.id.videoId + ',';
-            });
-            if (ids.length > 0) {
-                ids = ids.slice(0, -1);
-            }
+                if (data.nextPageToken) {
+                    instance.nextPageTokens.push(data.nextPageToken);
+                }
 
-            var listUrl = this.baseVideosUrl + 'key=' + this.apiKey + '&part=contentDetails,snippet,recordingDetails,statistics';
-            listUrl += '&id=' + ids;
+                var idString = '';
+                data.items.forEach(function (item) {
+                    idString += item.id.videoId + ',';
+                });
+                if (idString.length > 0) {
+                    idString = idString.slice(0, -1);
+                }
 
-            var tempResults: Video[] = [];
-            this.http.get(listUrl).map(listResult => listResult.json()).subscribe(listData => {
-                listData.items.forEach(function (item) {
-                    var video = instance.deserializeVideo(item);
-                    tempResults.push(video);
+                var listUrl = instance.baseVideosUrl + 'key=' + instance.apiKey + '&part=contentDetails,snippet,recordingDetails,statistics';
+                listUrl += '&id=' + idString;
+
+                instance.http.get(listUrl).map(listResult => listResult.json()).subscribe(listData => {
+                    listData.items.forEach(function (item) {
+                        var video = instance.deserializeVideo(item);
+                        instance.results.push(video);
+                    });
+
+                    returnCount++;
+                    if (returnCount == instance.requestUrls.length) {
+
+                        var elapsed = new Date().getTime() - start;
+
+                        if (elapsed < 500) {
+                            setTimeout(() => {
+                                loader.dismiss();
+                                instance.loading = false;
+                                instance.loadingEvent.next(instance.results);
+                            }, 500);
+                        }
+                        else {
+                            loader.dismiss();
+                            instance.loading = false;
+                            instance.loadingEvent.next(instance.results);
+                        }
+                    }
                 });
 
-                var elapsed = new Date().getTime() - start;
-
-                if (elapsed < 500) {
-                    setTimeout(() => {
-                        loader.dismiss();
-                        instance.results = tempResults;
-                        instance.loading = false;
-                        instance.loadingEvent.next(instance.results);
-                    }, 500);
-                }
-                else {
-                    loader.dismiss();
-                    instance.results = tempResults;
-                    instance.loading = false;
-                    instance.loadingEvent.next(instance.results);
-                }
             });
         });
+
     }
 
     showMore(): void {
-
         var loader = this.loadingCtrl.create({
             content: 'Finding videos',
         });
@@ -144,56 +161,54 @@ export class StateService {
         this.loading = true;
 
         var instance = this;
-        var url = this.baseSearchUrl + 'key=' + this.apiKey + '&part=snippet&type=video&videoEmbeddable=true';
-        url += '&pageToken=' + this.nextPageToken;
-        url += '&maxResults=' + 50;
 
+        var returnCount = 0;
         var start = new Date().getTime();
 
-        this.http.get(url).map(result => result.json()).subscribe(data => {
-            this.nextPageToken = '';
-            if (data.nextPageToken) {
-                this.nextPageToken = data.nextPageToken;
-            }
+        this.requestUrls.forEach(function (requestUrl, i) {
+            instance.http.get(requestUrl + '&pageToken=' + instance.nextPageTokens[i]).map(result => result.json()).subscribe(data => {
 
-            var ids = '';
-            data.items.forEach(function (item) {
-                ids += item.id.videoId + ',';
-            });
-            if (ids.length > 0) {
-                ids = ids.slice(0, -1);
-            }
+                if (data.nextPageToken) {
+                    instance.nextPageTokens[i] = data.nextPageToken;
+                }
 
-            var listUrl = this.baseVideosUrl + 'key=' + this.apiKey + '&part=snippet,recordingDetails';
-            listUrl += '&id=' + ids;
+                var idString = '';
+                data.items.forEach(function (item) {
+                    idString += item.id.videoId + ',';
+                });
+                if (idString.length > 0) {
+                    idString = idString.slice(0, -1);
+                }
 
-            var tempResults: Video[] = [];
-            this.http.get(listUrl).map(listResult => listResult.json()).subscribe(listData => {
-                listData.items.forEach(function (item) {
-                    var video = instance.deserializeVideo(item);
-                    tempResults.push(video);
+                var listUrl = instance.baseVideosUrl + 'key=' + instance.apiKey + '&part=contentDetails,snippet,recordingDetails,statistics';
+                listUrl += '&id=' + idString;
+
+                instance.http.get(listUrl).map(listResult => listResult.json()).subscribe(listData => {
+                    listData.items.forEach(function (item) {
+                        var video = instance.deserializeVideo(item);
+                        instance.results.push(video);
+                    });
+
+                    returnCount++;
+                    if (returnCount == instance.requestUrls.length) {
+
+                        var elapsed = new Date().getTime() - start;
+
+                        if (elapsed < 500) {
+                            setTimeout(() => {
+                                loader.dismiss();
+                                instance.loading = false;
+                                instance.loadingEvent.next(instance.results);
+                            }, 500);
+                        }
+                        else {
+                            loader.dismiss();
+                            instance.loading = false;
+                            instance.loadingEvent.next(instance.results);
+                        }
+                    }
                 });
 
-                var elapsed = new Date().getTime() - start;
-
-                if (elapsed < 500) {
-                    setTimeout(() => {
-                        loader.dismiss();
-                        tempResults.forEach(function (r) {
-                            instance.results.push(r);
-                        });
-                        instance.loading = false;
-                        instance.loadingEvent.next(instance.results);
-                    }, 500);
-                }
-                else {
-                    loader.dismiss();
-                    tempResults.forEach(function (r) {
-                        instance.results.push(r);
-                    });
-                    instance.loading = false;
-                    instance.loadingEvent.next(instance.results);
-                }
             });
         });
     }

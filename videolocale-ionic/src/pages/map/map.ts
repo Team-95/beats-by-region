@@ -26,6 +26,7 @@ export class MapPage {
             var maxLat = -90;
             var minLon = 180;
             var maxLon = -180;
+            var haveAnyCoordinates = false;
 
             instance.markers.forEach(function (mk) {
                 instance.map.removeLayer(mk);
@@ -33,6 +34,7 @@ export class MapPage {
 
             results.forEach(function (result) {
                 if (result.latitude != null && result.longitude != null) {
+                    haveAnyCoordinates = true;
                     var tempLat = result.latitude;
                     var tempLong = result.longitude;
 
@@ -69,9 +71,10 @@ export class MapPage {
                     instance.markers.push(marker);
                 }
             });
-
-            var buff = (maxLat - minLat) / 100;
-            instance.map.fitBounds([[minLat, minLon], [maxLat + buff, maxLon]]);
+            if (haveAnyCoordinates) {
+                var buff = (maxLat - minLat) / 50;
+                instance.map.fitBounds([[minLat - buff, minLon - buff], [maxLat + buff, maxLon + buff]]);
+            }
         });
     };
 

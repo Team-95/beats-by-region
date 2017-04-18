@@ -23,7 +23,7 @@
         </ion-card-content>
     </ion-card>
 
-    <ion-list *ngIf="stateService.results.length > 0">
+    <ion-list *ngIf="stateService.results.length > 0 && stateService.loading == false">
         <a ion-item *ngFor="let video of stateService.results" href="https://youtube.com/watch?v={{video.id}}">
             <ion-label>{{video.title}}</ion-label>
         </a>
