@@ -98,4 +98,6 @@
   <plugin name="cordova-plugin-splashscreen" spec="~4.0.1" />
   <plugin name="com.bunkerpalace.cordova.YoutubeVideoPlayer" spec="~1.0.1" />
   <preference name="Orientation" value="portrait" />
+  <plugin name="cordova-plugin-compat" spec="~1.1.0" />
+  <plugin name="cordova-plugin-geolocation" spec="~2.4.2" />
 </widget>

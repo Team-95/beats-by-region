@@ -15,6 +15,9 @@
     <div id="main-body">
         <div id="map-container" data-tap-disabled="true">
             <div id="map"></div>
+            <div id="map-show-more" *ngIf="_stateService.nextPageTokens.length > 0 && _stateService.loading == false" (click)="showMoreClicked()">
+                Show more...
+            </div>
         </div>
     </div>
 </ion-content>

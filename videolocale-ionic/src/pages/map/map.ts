@@ -83,6 +83,10 @@ export class MapPage {
         this._stateService.search();
     };
 
+    showMoreClicked(): void {
+        this._stateService.showMore();
+    }
+
     ngOnInit(): void {
 
         var instance = this;
