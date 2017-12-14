@@ -1,8 +1,9 @@
 
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, ModalController } from 'ionic-angular';
 import { StateService } from '../../providers/state.service';
 import { Region } from '../../shared/region';
+import { ModalPopup } from '../modal/modal';
 
 declare var L: any;
 declare var $: any;
@@ -16,7 +17,7 @@ export class MapPage {
     map: any;
     markers: any [] = [];
 
-    constructor(public navCtrl: NavController, private _stateService: StateService) {
+    constructor(public navCtrl: NavController, private _stateService: StateService, public modalCtrl: ModalController) {
 
         var instance = this;
 
@@ -214,6 +215,8 @@ export class MapPage {
             instance.map.setView([position.coords.latitude, position.coords.longitude], 11, { animation: true });
         });
 
+        let modal = this.modalCtrl.create(ModalPopup);
+        modal.present();
     }
 
     onLink(url: string) {

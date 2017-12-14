@@ -1,0 +1,29 @@
+modal-popup{
+
+
+.modal-main{
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+.modal-background{
+    width: 100%;
+    height: 100%;
+    background: gray;
+    opacity: .7;
+    position: absolute;
+}
+
+.model-content{
+    display: inline-block;
+    padding-top: 50%;
+
+    h1{
+        position: relative;
+        color: white;
+    }
+}
+
+    
+}

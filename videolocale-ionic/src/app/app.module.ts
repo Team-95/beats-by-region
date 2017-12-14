@@ -6,10 +6,12 @@ import { ResultsPage } from '../pages/results/results';
 import { MapPage } from '../pages/map/map';
 import { TabsPage } from '../pages/tabs/tabs';
 import { StateService } from '../services/state.service';
+import { ModalPopup } from '../pages/modal/modal';
 
 @NgModule({
   declarations: [
     MyApp,
+    ModalPopup,
     FiltersPage,
     ResultsPage,
     MapPage,
@@ -21,6 +23,7 @@ import { StateService } from '../services/state.service';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
+    ModalPopup,
     FiltersPage,
     ResultsPage,
     MapPage,
